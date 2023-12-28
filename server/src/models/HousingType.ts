@@ -11,6 +11,5 @@ const HousingTypeSchema = new Schema(
   { versionKey: false }
 );
 
-const HousingType =
-  models.HousingType || model("HousingType", HousingTypeSchema);
+const HousingType = models.HousingType || model("HousingType", HousingTypeSchema);
 export default HousingType;
