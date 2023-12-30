@@ -5,7 +5,7 @@ export type UpdateParams = {
   phone?: string;
   email?: string;
   verified?: boolean;
-  role?: "user" | "admin" | "banned";
+  refreshToken?: string;
 };
 
 export type SetFavoriteParams = {
