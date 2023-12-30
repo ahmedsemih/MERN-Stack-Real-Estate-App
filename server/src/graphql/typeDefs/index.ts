@@ -1,11 +1,25 @@
-const typeDefs = `#graphql
-    type Test {
-        message: String
-    }
+import { mergeTypeDefs } from "@graphql-tools/merge";
 
-    type Query {
-        tests: [Test]
-    }
-`;
+import users from "./user";
+import types from "./type";
+import estates from "./estate";
+import details from "./details";
+import provinces from "./province";
+import districts from "./district";
+import locations from "./location";
+import housingTypes from "./housingType";
+import notifications from "./notification";
+
+const typeDefs = mergeTypeDefs([
+  provinces,
+  districts,
+  details,
+  estates,
+  housingTypes,
+  locations,
+  notifications,
+  types,
+  users,
+]);
 
 export default typeDefs;
