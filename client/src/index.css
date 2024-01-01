@@ -1,0 +1,59 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,400&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg: rgb(208, 219, 225);
+    --bg-soft: rgb(230, 232, 235);
+    --text: rgb(25, 25, 25);
+    --text-soft: rgb(40, 40, 40);
+    --primary: rgb(51, 123, 170);
+    --secondary: rgb(28, 69, 125);
+  }
+
+  * {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Roboto", sans-serif;
+  }
+
+  html {
+    width: 100vw;
+    height: 100vh;
+    overflow-x: hidden;
+    background-color: var(--bg);
+    color: var(--text);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: rgb(25, 25, 25);
+      --bg-soft: rgb(40, 40, 40);
+      --text: rgb(208, 219, 225);
+      --text-soft: rgb(230, 232, 235);
+      --primary: rgb(51, 123, 170);
+      --secondary: rgb(28, 69, 125);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --bg: rgb(25, 25, 25);
+    --bg-soft: rgb(40, 40, 40);
+    --text: rgb(208, 219, 225);
+    --text-soft: rgb(230, 232, 235);
+    --primary: rgb(51, 123, 170);
+    --secondary: rgb(28, 69, 125);
+  }
+
+  :root[data-theme="light"] {
+    --bg: rgb(208, 219, 225);
+    --bg-soft: rgb(230, 232, 235);
+    --text: rgb(25, 25, 25);
+    --text-soft: rgb(40, 40, 40);
+    --primary: rgb(51, 123, 170);
+    --secondary: rgb(28, 69, 125);
+  }
+}
