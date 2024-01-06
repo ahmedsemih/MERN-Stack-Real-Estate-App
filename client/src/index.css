@@ -5,12 +5,13 @@
 
 @layer base {
   :root {
-    --bg: rgb(208, 219, 225);
-    --bg-soft: rgb(230, 232, 235);
+    --bg: rgb(230, 230, 230);
+    --bg-soft: rgb(240, 240, 240);
+    --border: rgb(210, 210, 210);
     --text: rgb(25, 25, 25);
     --text-soft: rgb(40, 40, 40);
-    --primary: rgb(51, 123, 170);
-    --secondary: rgb(28, 69, 125);
+    --primary: rgb(225, 33, 27);
+    --secondary: rgb(196, 24, 18);
   }
 
   * {
@@ -32,28 +33,31 @@
     :root {
       --bg: rgb(25, 25, 25);
       --bg-soft: rgb(40, 40, 40);
-      --text: rgb(208, 219, 225);
-      --text-soft: rgb(230, 232, 235);
-      --primary: rgb(51, 123, 170);
-      --secondary: rgb(28, 69, 125);
+      --border: rgb(75, 75, 75);
+      --text: rgb(245, 245, 245);
+      --text-soft: rgb(224, 224, 224);
+      --primary: rgb(225, 33, 27);
+      --secondary: rgb(196, 24, 18);
     }
   }
 
   :root[data-theme="dark"] {
     --bg: rgb(25, 25, 25);
     --bg-soft: rgb(40, 40, 40);
-    --text: rgb(208, 219, 225);
-    --text-soft: rgb(230, 232, 235);
-    --primary: rgb(51, 123, 170);
-    --secondary: rgb(28, 69, 125);
+    --border: rgb(75, 75, 75);
+    --text: rgb(245, 245, 245);
+    --text-soft: rgb(224, 224, 224);
+    --primary: rgb(225, 33, 27);
+    --secondary: rgb(196, 24, 18);
   }
 
   :root[data-theme="light"] {
-    --bg: rgb(208, 219, 225);
-    --bg-soft: rgb(230, 232, 235);
+    --bg: rgb(230, 230, 230);
+    --bg-soft: rgb(240, 240, 240);
+    --border: rgb(210, 210, 210);
     --text: rgb(25, 25, 25);
     --text-soft: rgb(40, 40, 40);
-    --primary: rgb(51, 123, 170);
-    --secondary: rgb(28, 69, 125);
+    --primary: rgb(225, 33, 27);
+    --secondary: rgb(196, 24, 18);
   }
 }
