@@ -11,7 +11,6 @@ import context from "./graphql/context";
 dotenv.config();
 const app = express();
 const port = Number(process.env.PORT) || 5000;
-const APOLLO_URL = "https://studio.apollographql.com";
 
 const bootstrapServer = async () => {
   await connectDb();
@@ -19,7 +18,7 @@ const bootstrapServer = async () => {
 
   app.use(
     cors({
-      origin: [process.env.CLIENT_URL, APOLLO_URL],
+      origin: '*',
       credentials: true,
     })
   );
