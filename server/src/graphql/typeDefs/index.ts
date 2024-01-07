@@ -7,7 +7,7 @@ import details from "./details";
 import provinces from "./province";
 import districts from "./district";
 import locations from "./location";
-import housingTypes from "./housingType";
+import detailedType from "./detailedType";
 import notifications from "./notification";
 
 const typeDefs = mergeTypeDefs([
@@ -15,7 +15,7 @@ const typeDefs = mergeTypeDefs([
   districts,
   details,
   estates,
-  housingTypes,
+  detailedType,
   locations,
   notifications,
   types,

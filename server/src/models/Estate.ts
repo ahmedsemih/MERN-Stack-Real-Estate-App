@@ -46,9 +46,9 @@ const EstateSchema = new Schema(
       ref: "Type",
       required: true,
     },
-    housingType: {
+    detailedType: {
       type: Schema.Types.ObjectId,
-      ref: "HousingType",
+      ref: "DetailedType",
     },
     details: {
       type: Schema.Types.ObjectId,

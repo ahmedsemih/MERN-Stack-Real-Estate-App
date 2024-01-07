@@ -7,7 +7,7 @@ import details from "./details";
 import locations from "./location";
 import provinces from "./province";
 import districts from "./district";
-import housingTypes from "./housingType";
+import detailedType from "./detailedType";
 import notifications from "./notification";
 
 const resolvers = mergeResolvers([
@@ -15,7 +15,7 @@ const resolvers = mergeResolvers([
   districts,
   details,
   estates,
-  housingTypes,
+  detailedType,
   notifications,
   locations,
   types,

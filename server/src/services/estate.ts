@@ -7,7 +7,7 @@ export type FilterParams = {
   maxSize?: number;
   category?: string;
   type?: string;
-  housingType?: string;
+  detailedType?: string;
   province?: string;
   district?: string;
 };
@@ -22,7 +22,7 @@ export type CreateParams = {
   category: string;
   location: string;
   type: string;
-  housingType?: string;
+  detailedType?: string;
   details?: string;
 };
 
@@ -35,13 +35,13 @@ export type UpdateParams = {
   size?: number;
   category?: string;
   type?: string;
-  housingType?: string;
+  detailedType?: string;
 };
 
 const populateOptions = [
   { path: "seller" },
   { path: "type" },
-  { path: "housingType" },
+  { path: "detailedType" },
   { path: "details" },
   {
     path: "location",
@@ -75,7 +75,7 @@ class EstateService {
       size: { $lte: params.minSize, $gte: params.maxSize },
       category: params.category,
       type: params.type,
-      housingType: params.housingType,
+      detailedType: params.detailedType,
       location: {
         province: params.province,
         district: params.district,

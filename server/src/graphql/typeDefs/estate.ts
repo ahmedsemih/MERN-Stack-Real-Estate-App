@@ -13,7 +13,7 @@ export default `#graphql
         category: Categories!
         location: Location!
         type: Type!
-        housingType: HousingType
+        detailedType: DetailedType
         details: Details
     }
 
@@ -38,7 +38,7 @@ export default `#graphql
         maxSize: Int
         category: String
         type: ID
-        housingType: ID
+        detailedType: ID
         province: ID
         district: ID
     }
@@ -53,7 +53,7 @@ export default `#graphql
         category: String!
         location: ID!
         type: ID!
-        housingType: ID!
+        detailedType: ID!
         details: ID!
     }
 
@@ -65,7 +65,7 @@ export default `#graphql
         size: Int
         category: String
         type: ID
-        housingType: ID
+        detailedType: ID
     }
 
     enum Categories {
