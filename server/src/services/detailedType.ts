@@ -18,6 +18,11 @@ class DetailedTypeServices {
     return detailedTypes;
   }
 
+  public static async getDetailedTypesByParent(parentId: string) {
+    const detailedTypes = await DetailedType.find({ parent: parentId});
+    return detailedTypes;
+  }
+
   public static async createDetailedType(params: CreateParams) {
     const detailedType = await DetailedType.create(params);
     return detailedType;

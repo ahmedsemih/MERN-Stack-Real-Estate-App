@@ -25,7 +25,7 @@ export type Estate = {
   category: "rent" | "sale";
   location: Location;
   type: Type;
-  housingType?: HousingType;
+  detailedType: DetailedType;
   details?: Details;
 };
 
@@ -34,9 +34,10 @@ export type Type = {
   name: string;
 };
 
-export type HousingType = {
+export type DetailedType = {
   _id: string;
   name: string;
+  parent: Type;
 };
 
 export type Province = {

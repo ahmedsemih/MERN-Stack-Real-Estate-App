@@ -13,7 +13,7 @@ export default `#graphql
         category: Categories!
         location: Location!
         type: Type!
-        detailedType: DetailedType
+        detailedType: DetailedType!
         details: Details
     }
 
@@ -54,7 +54,7 @@ export default `#graphql
         location: ID!
         type: ID!
         detailedType: ID!
-        details: ID!
+        details: ID
     }
 
     input UpdateInputs {

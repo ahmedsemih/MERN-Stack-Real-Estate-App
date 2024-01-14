@@ -13,6 +13,10 @@ export default {
       const detailedTypes = await DetailedTypeServices.getDetailedTypes();
       return detailedTypes;
     },
+    async detailedTypesByParent(_: any, args: { parentId: string }) {
+      const detailedTypes = await DetailedTypeServices.getDetailedTypesByParent(args.parentId);
+      return detailedTypes;
+    }
   },
   Mutation: {
     async createDetailedType(_: any, args: CreateParams) {

@@ -8,6 +8,7 @@ export default `#graphql
     type Query {
         detailedType(_id: ID!): DetailedType
         detailedTypes: [DetailedType]
+        detailedTypesByParent(parentId: ID!): [DetailedType]
     }
 
     type Mutation {

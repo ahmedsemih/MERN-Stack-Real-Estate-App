@@ -22,7 +22,7 @@ export default `#graphql
         register(name: String!, password: String!, phone: String!, email: String!): User
         login(email: String!, password: String!): String
         logout(_id: ID!): Boolean
-        updateUser(_id: ID!, phone: String, email: String, verified: String, refreshToken: String): User
+        updateUser(_id: ID!, phone: String, email: String, verified: Boolean, refreshToken: String): User
         addFavorite(_id: ID!, estateId: ID!): User
         removeFavorite(_id: ID!, estateId: ID!): User
     }
