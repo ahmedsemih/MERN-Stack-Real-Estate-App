@@ -16,9 +16,17 @@ type Inputs = {
 };
 const SignupPage = () => {
   const navigate = useNavigate();
-  const [register, { data, loading, error }] = useMutation(REGISTER, {
-    errorPolicy: "all",
-    fetchPolicy: "no-cache",
+  const [register, { loading }] = useMutation(REGISTER, {
+    onCompleted: () => {
+      toast.success("Account created successfully.");
+
+      setTimeout(() => {
+        navigate("/login");
+      }, 2000);
+    },
+    onError: () => {
+      return toast.error("This email is already in use.");
+    },
   });
 
   const {
@@ -36,16 +44,6 @@ const SignupPage = () => {
     await register({
       variables: { name, email, phone, password },
     });
-
-    if (error) return toast.error(error.message);
-
-    if (data) {
-      toast.success("Account created successfully.");
-
-      setTimeout(() => {
-        navigate("/login");
-      }, 2000);
-    }
   };
 
   return (

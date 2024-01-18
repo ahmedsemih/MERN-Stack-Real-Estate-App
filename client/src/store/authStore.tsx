@@ -12,6 +12,7 @@ type State = {
 
 type Actions = {
   setToken(token: string): void;
+  logOut(): void;
 };
 
 export const useAuthStore = create<State & Actions>((set) => {
@@ -36,6 +37,14 @@ export const useAuthStore = create<State & Actions>((set) => {
         Cookies.set("token", jwt, { sameSite: "none", secure: true });
 
         return { ...state, token: jwt };
+      }),
+    logOut: () =>
+      set((state) => {
+        Cookies.remove("token");
+        state.user = null;
+        state.token = "";
+        
+        return { ...state };
       }),
   };
 });

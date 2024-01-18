@@ -1,5 +1,6 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { GraphQLError } from "../../node_modules/graphql";
 
 import UserService from "./user";
 import User from "../models/User";
@@ -23,50 +24,42 @@ type GenerateParams = {
 
 class AuthService {
   public static async register(params: RegisterParams) {
-    try {
-      const { email, password } = params;
+    const { email, password } = params;
 
-      const hashedPassword = await bcrypt.hash(password, 10);
-      const isExist = await UserService.getUserByEmail(email);
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const isExist = await UserService.getUserByEmail(email);
 
-      if (isExist) throw new Error("This email is already in use.");
+    if (isExist) throw new GraphQLError("This email is already in use.");
 
-      const user = await User.create({ ...params, password: hashedPassword });
-      return user;
-    } catch (error) {
-      return error;
-    }
+    const user = await User.create({ ...params, password: hashedPassword });
+    return user;
   }
 
   public static async login(params: LoginParams) {
-    try {
-      const { email, password } = params;
+    const { email, password } = params;
 
-      const user = await UserService.getUserByEmail(email);
-      if (!user) throw new Error("Wrong email or password.");
+    const user = await UserService.getUserByEmail(email);
+    if (!user) throw new GraphQLError("Wrong email or password.");
 
-      if (user.role === "banned")
-        throw new Error("Your account has been banned.");
+    if (user.role === "banned")
+      throw new GraphQLError("Your account has been banned.");
 
-      const isSame = await bcrypt.compare(password, user.password);
+    const isSame = await bcrypt.compare(password, user.password);
 
-      if (!isSame) throw new Error("Wrong email or password.");
+    if (!isSame) throw new GraphQLError("Wrong email or password.");
 
-      const accessToken = await AuthService.generateAccessToken({
-        _id: user._id,
-        role: user.role,
-      });
-      const refreshToken = await AuthService.generateRefreshToken({
-        _id: user._id,
-        role: user.role,
-      });
+    const accessToken = await AuthService.generateAccessToken({
+      _id: user._id,
+      role: user.role,
+    });
+    const refreshToken = await AuthService.generateRefreshToken({
+      _id: user._id,
+      role: user.role,
+    });
 
-      await UserService.updateUser({ _id: user._id, refreshToken });
+    await UserService.updateUser({ _id: user._id, refreshToken });
 
-      return { accessToken, refreshToken };
-    } catch (error) {
-      return error;
-    }
+    return { accessToken, refreshToken };
   }
 
   public static async logout(_id: string) {

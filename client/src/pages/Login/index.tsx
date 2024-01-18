@@ -6,8 +6,8 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { Input } from "../../components/form";
 import { Logo } from "../../components/common";
 import { BasicButton } from "../../components/ui";
-import { LOGIN } from "../../graphql/mutations/auths";
 import { useAuthStore } from "../../store/authStore";
+import { LOGIN } from "../../graphql/mutations/auths";
 
 type Inputs = {
   email: string;
@@ -17,7 +17,16 @@ type Inputs = {
 const LoginPage = () => {
   const navigate = useNavigate();
   const setToken = useAuthStore((state) => state.setToken);
-  const [login, { data, loading, error }] = useMutation(LOGIN);
+  const [login, { loading }] = useMutation(LOGIN, {
+    onCompleted: ({ login }) => {
+      setToken(login);
+      return navigate("/");
+    },
+    onError: () => {
+      reset();
+      return toast.error("Wrong email or password.");
+    },
+  });
 
   const {
     register,
@@ -28,16 +37,6 @@ const LoginPage = () => {
 
   const onSubmit: SubmitHandler<Inputs> = async ({ email, password }) => {
     await login({ variables: { email, password } });
-
-    if (error) {
-      reset();
-      return toast.error(error.message);
-    }
-
-    if (data) {
-      setToken(data.login);
-      return navigate("/");
-    }
   };
 
   return (
