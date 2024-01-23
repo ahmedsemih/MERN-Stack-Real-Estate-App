@@ -13,29 +13,33 @@ export type FilterParams = {
 };
 
 export type CreateParams = {
-  images: string[];
-  title: string;
-  description: string;
-  price: number;
-  seller: string;
-  size: number;
-  category: string;
-  location: string;
-  type: string;
-  detailedType?: string;
-  details?: string;
+  body: {
+    images: string[];
+    title: string;
+    description: string;
+    price: number;
+    seller: string;
+    size: number;
+    category: string;
+    location: string;
+    type: string;
+    detailedType?: string;
+    details?: string;
+  };
 };
 
 export type UpdateParams = {
   _id: string;
-  images?: string[];
-  title?: string;
-  description?: string;
-  price?: number;
-  size?: number;
-  category?: string;
-  type?: string;
-  detailedType?: string;
+  body: {
+    images?: string[];
+    title?: string;
+    description?: string;
+    price?: number;
+    size?: number;
+    category?: string;
+    type?: string;
+    detailedType?: string;
+  };
 };
 
 const populateOptions = [
@@ -55,21 +59,33 @@ class EstateService {
     return estate;
   }
 
-  public static async getEstates() {
+  public static async getEstates(limit?: number, offset?: number) {
     const estates = await Estate.find({})
       .populate(populateOptions)
-      .sort({ updatedAt: "desc" });
+      .sort({ updatedAt: "desc" })
+      .limit(limit)
+      .skip(offset);
     return estates;
   }
 
-  public static async getEstatesBySeller(sellerId: string) {
+  public static async getEstatesBySeller(
+    sellerId: string,
+    limit?: number,
+    offset?: number
+  ) {
     const estates = await Estate.find({ seller: sellerId })
       .populate(populateOptions)
-      .sort({ updatedAt: "desc" });
+      .sort({ updatedAt: "desc" })
+      .limit(limit)
+      .skip(offset);
     return estates;
   }
 
-  public static async getEstatesByFilter(params: FilterParams) {
+  public static async getEstatesByFilter(
+    params: FilterParams,
+    limit?: number,
+    offset?: number
+  ) {
     const estates = await Estate.find({
       price: { $lte: params.minPrice, $gte: params.maxPrice },
       size: { $lte: params.minSize, $gte: params.maxSize },
@@ -82,31 +98,46 @@ class EstateService {
       },
     })
       .populate(populateOptions)
-      .sort({ updatedAt: "desc" });
+      .sort({ updatedAt: "desc" })
+      .limit(limit)
+      .skip(offset);
     return estates;
   }
 
-  public static async getEstatesSortedByDate(desc: boolean) {
+  public static async getEstatesSortedByDate(
+    desc: boolean,
+    limit?: number,
+    offset?: number
+  ) {
     const estates = await Estate.find({})
       .populate(populateOptions)
-      .sort({ updatedAt: desc ? "desc" : "asc" });
+      .sort({ updatedAt: desc ? "desc" : "asc" })
+      .limit(limit)
+      .skip(offset);
     return estates;
   }
 
-  public static async getEstatesSortedByPrice(desc: boolean) {
+  public static async getEstatesSortedByPrice(
+    desc: boolean,
+    limit?: number,
+    offset?: number
+  ) {
     const estates = await Estate.find({})
       .populate(populateOptions)
-      .sort({ price: desc ? "desc" : "asc" });
+      .sort({ price: desc ? "desc" : "asc" })
+      .limit(limit)
+      .skip(offset);
+
     return estates;
   }
 
   public static async createEstate(params: CreateParams) {
-    const estate = await Estate.create(params);
+    const estate = await Estate.create(params.body);
     return estate;
   }
 
   public static async updateEstate(params: UpdateParams) {
-    const estate = await Estate.findByIdAndUpdate(params._id, params, {
+    const estate = await Estate.findByIdAndUpdate(params._id, params.body, {
       new: true,
     });
     return estate;

@@ -10,12 +10,12 @@ export default {
       const user = await UserService.getUserById(args._id);
       return user;
     },
-    async users() {
-      const users = await UserService.getUsers();
+    async users(_:any, args: { limit?: number, offset?:number }) {
+      const users = await UserService.getUsers(args.limit, args.offset);
       return users;
     },
-    async favorites(_: any, args: { _id: string }) {
-      const favorites = await UserService.getFavorites(args._id);
+    async favorites(_: any, args: { _id: string, limit?: number, offset?:number }) {
+      const favorites = await UserService.getFavorites(args._id, args.limit, args.offset);
       return favorites;
     },
   },

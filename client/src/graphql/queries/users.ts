@@ -14,8 +14,8 @@ export const GET_USER = gql`
   }
 `;
 export const GET_USERS = gql`
-  query users {
-    users {
+  query users($limit: Int, $offset: Int) {
+    users(limit: $limit, offset: $offset) {
       _id
       name
       email
@@ -27,8 +27,8 @@ export const GET_USERS = gql`
   }
 `;
 export const GET_FAVORITES = gql`
-  query favorites($_id: ID!) {
-    favorites(_id: $_id) {
+  query favorites($_id: ID!, $limit: Int, $offset: Int) {
+    favorites(_id: $_id, limit: $limit, offset: $offset) {
       _id
       images
       title

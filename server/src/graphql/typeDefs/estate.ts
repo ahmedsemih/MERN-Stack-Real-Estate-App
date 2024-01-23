@@ -19,11 +19,11 @@ export default `#graphql
 
     type Query {
         estate(_id: ID!): Estate
-        estates: [Estate]
-        estatesBySeller(sellerId: ID!): [Estate]
-        estatesByFilter(body: Filters): [Estate]
-        estatesSortedByDate(desc: Boolean!): [Estate]
-        estatesSortedByPrice(desc: Boolean!): [Estate]
+        estates(limit: Int, offset: Int): [Estate]
+        estatesBySeller(sellerId: ID!, limit: Int, offset: Int): [Estate]
+        estatesByFilter(body: Filters, limit: Int, offset: Int): [Estate]
+        estatesSortedByDate(desc: Boolean!, limit: Int, offset: Int): [Estate]
+        estatesSortedByPrice(desc: Boolean!, limit: Int, offset: Int): [Estate]
     }
 
     type Mutation {

@@ -24,15 +24,24 @@ class UserService {
     return user;
   }
 
-  public static async getUsers() {
-    const users = await User.find({}).populate("favorites");
+  public static async getUsers(limit?: number, offset?: number) {
+    const users = await User.find({})
+      .populate("favorites")
+      .limit(limit)
+      .skip(offset);
     return users;
   }
 
-  public static async getFavorites(_id: string) {
+  public static async getFavorites(
+    _id: string,
+    limit?: number,
+    offset?: number
+  ) {
     const favorites = await User.findById(_id)
       .select("favorites")
-      .populate("favorites");
+      .populate("favorites")
+      .limit(limit)
+      .skip(offset);
     return favorites;
   }
 

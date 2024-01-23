@@ -14,8 +14,8 @@ export default `#graphql
 
     type Query {
         user(_id: ID!): User
-        users: [User]
-        favorites(_id: ID!): [Estate]
+        users(limit: Int, offset: Int): [User]
+        favorites(_id: ID!, limit: Int, offset: Int): [Estate]
     }
 
     type Mutation {

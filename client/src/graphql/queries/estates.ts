@@ -62,8 +62,8 @@ export const GET_ESTATE = gql`
   }
 `;
 export const GET_ESTATES = gql`
-  query estates {
-    estates {
+  query estates($limit: Int, $offset: Int) {
+    estates(limit: $limit, offset: $offset) {
       _id
       images
       title
@@ -113,8 +113,8 @@ export const GET_ESTATES = gql`
   }
 `;
 export const GET_ESTATES_BY_SELLER = gql`
-  query estatesBySeller($sellerId: ID!) {
-    estatesBySeller(sellerId: $sellerId) {
+  query estatesBySeller($sellerId: ID!, $limit: Int, $offset: Int) {
+    estatesBySeller(sellerId: $sellerId, limit: $limit, offset: $offset) {
       _id
       images
       title
@@ -174,17 +174,23 @@ export const GET_ESTATES_BY_FILTER = gql`
     $detailedType: ID
     $province: ID
     $district: ID
+    $limit: Int
+    $offset: Int
   ) {
     estatesByFilter(
-      minPrice: $minPrice
-      maxPrice: $maxPrice
-      minSize: $minSize
-      maxSize: $maxSize
-      category: $category
-      type: $type
-      detailedType: $detailedType
-      province: $province
-      district: $district
+      body: {
+        minPrice: $minPrice
+        maxPrice: $maxPrice
+        minSize: $minSize
+        maxSize: $maxSize
+        category: $category
+        type: $type
+        detailedType: $detailedType
+        province: $province
+        district: $district
+      }
+      limit: $limit
+      offset: $offset
     ) {
       _id
       images
@@ -235,8 +241,8 @@ export const GET_ESTATES_BY_FILTER = gql`
   }
 `;
 export const GET_ESTATES_SORTED_BY_DATE = gql`
-  query estatesSortedByDate($desc: Boolean!) {
-    estatesSortedByDate(desc: $desc) {
+  query estatesSortedByDate($desc: Boolean!, $limit: Int, $offset: Int) {
+    estatesSortedByDate(desc: $desc, limit: $limit, offset: $offset) {
       _id
       images
       title
@@ -286,8 +292,8 @@ export const GET_ESTATES_SORTED_BY_DATE = gql`
   }
 `;
 export const GET_ESTATES_SORTED_BY_PRICE = gql`
-  query estatesSortedByPrice($desc: Boolean!) {
-    estatesSortedByPrice(desc: $desc) {
+  query estatesSortedByPrice($desc: Boolean!, $limit: Int, $offset: Int) {
+    estatesSortedByPrice(desc: $desc, limit: $limit, offset: $offset) {
       _id
       images
       title
