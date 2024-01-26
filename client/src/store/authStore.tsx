@@ -16,7 +16,7 @@ type Actions = {
 };
 
 export const useAuthStore = create<State & Actions>((set) => {
-  const token = Cookies.get("token") || "";
+  const token = Cookies.get("access-token") || "";
   let user: State["user"] = null;
 
   if (token && token !== "") {
@@ -34,13 +34,13 @@ export const useAuthStore = create<State & Actions>((set) => {
     token,
     setToken: (jwt: string) =>
       set((state) => {
-        Cookies.set("token", jwt, { sameSite: "none", secure: true });
+        Cookies.set("access-token", jwt, { sameSite: "none", secure: true });
 
         return { ...state, token: jwt };
       }),
     logOut: () =>
       set((state) => {
-        Cookies.remove("token");
+        Cookies.remove("access-token");
         state.user = null;
         state.token = "";
         

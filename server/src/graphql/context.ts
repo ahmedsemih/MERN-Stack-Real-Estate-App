@@ -20,7 +20,7 @@ export default async ({ req, res }: { req: Request; res: Response }) => {
   let user: User = null;
   const accessToken = req.headers.authorization || req.cookies["access-token"];
   const refreshToken = req.cookies["refresh-token"];
-
+  
   if (accessToken && accessToken !== undefined) {
     jwt.verify(
       accessToken,
@@ -65,13 +65,13 @@ export default async ({ req, res }: { req: Request; res: Response }) => {
             });
 
             res.cookie("access-token", newAccessToken, {
-              secure: process.env.NODE_ENV === "production",
+              secure: true,
               maxAge: 1000 * 60 * 30,
               sameSite: "none",
             });
             res.cookie("refresh-token", newRefreshToken, {
               httpOnly: true,
-              secure: process.env.NODE_ENV === "production",
+              secure: true,
               maxAge: 1000 * 60 * 60 * 24 * 7,
               sameSite: "none",
             });
