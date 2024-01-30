@@ -70,7 +70,7 @@ export type Location = {
 
 export type Details = {
   _id: string;
-  age: number;
+  buildingYear: number;
   roomAndSaloon: string;
   floor: number;
   locatedFloor: number;
