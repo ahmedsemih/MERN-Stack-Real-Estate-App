@@ -29,13 +29,26 @@
     color: var(--text);
   }
 
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+
+  input[type="checkbox"] {
+    background: #000 !important;
+  }
+
   @media (prefers-color-scheme: dark) {
     :root {
       --bg: rgb(25, 25, 25);
       --bg-soft: rgb(40, 40, 40);
       --border: rgb(75, 75, 75);
       --text: rgb(245, 245, 245);
-      --text-soft: rgb(224, 224, 224);
+      --text-soft: rgb(211, 211, 211);
       --primary: rgb(225, 33, 27);
       --secondary: rgb(196, 24, 18);
     }
@@ -46,7 +59,7 @@
     --bg-soft: rgb(40, 40, 40);
     --border: rgb(75, 75, 75);
     --text: rgb(245, 245, 245);
-    --text-soft: rgb(224, 224, 224);
+    --text-soft: rgb(211, 211, 211);
     --primary: rgb(225, 33, 27);
     --secondary: rgb(196, 24, 18);
   }

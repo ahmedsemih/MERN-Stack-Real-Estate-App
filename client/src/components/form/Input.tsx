@@ -8,10 +8,11 @@ type Props = {
   placeholder: string;
   className?: string;
   error?: FieldError;
+  disabled?: boolean;
 };
 
 const Input: FC<Props> = forwardRef(
-  ({ label, type, placeholder, className, error, ...props }, ref) => {
+  ({ label, type, placeholder, className, error, disabled, ...props }, ref) => {
     const [passType, setPassType] = useState("password");
 
     const togglePassType = () => {
@@ -24,6 +25,7 @@ const Input: FC<Props> = forwardRef(
           <label className="text-xl text-textColor-soft">{label}</label>
           <div className="w-full rounded-lg relative">
             <input
+              // @ts-expect-error type diff
               ref={ref}
               className={
                 `w-full rounded-lg p-1 text-xl indent-2 border-2 outline-none bg-borderColor text-textColor selection:text-borderColor selection:bg-bgColor-soft ${
@@ -31,11 +33,13 @@ const Input: FC<Props> = forwardRef(
                 } ` + className
               }
               type={passType}
+              disabled={disabled}
               placeholder={placeholder}
               {...props}
             />
             <button
               type="button"
+              disabled={disabled}
               onClick={togglePassType}
               className="absolute right-3 text-2xl text-textColor-soft top-2 transition-all duration-200 opacity-70 hover:opacity-100"
             >
@@ -48,16 +52,19 @@ const Input: FC<Props> = forwardRef(
 
     return (
       <div className="w-full">
-        <label className="text-xl text-textColor-soft">{label}</label>
+        <label className="text-xl text-textColor font-semibold">{label}</label>
         <input
+          // @ts-expect-error type diff
           ref={ref}
           className={
-            `w-full rounded-lg p-1 text-xl indent-2 border-2 outline-none bg-borderColor text-textColor selection:text-borderColor selection:bg-bgColor-soft ${
+            `w-full rounded-lg p-1 text-xl indent-2 border-2 outline-none bg-borderColor text-textColor selection:text-borderColor selection:bg-bgColor-soft appearance-none ${
               error ? "border-primary" : "border-borderColor"
             } ` + className
           }
           type={type}
+          disabled={disabled}
           placeholder={placeholder}
+          min={0}
           {...props}
         />
         <p className="text-primary">{error?.message}</p>
