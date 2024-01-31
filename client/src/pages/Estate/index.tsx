@@ -1,11 +1,13 @@
 import { useQuery } from "@apollo/client";
-import { useLocation } from "react-router-dom";
+import { MdArrowBack } from "react-icons/md";
+import { Link, useLocation } from "react-router-dom";
 
 import {
   Carousel,
   Description,
   Details,
   Info,
+  Loader,
   Location,
   SellerInfo,
 } from "./components";
@@ -18,21 +20,26 @@ const Estate = () => {
     variables: { _id: location.state._id },
   });
 
-  if (loading) return <div>
-    <div></div>
-    <div className="grid grid-cols-4 gap-4">
-        <div className="col-span-3 flex flex-col gap-4">
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-        </div>
-        <div className="col-span-1 bg-bgColor-soft rounded-lg p-4 border border-borderColor md:h-[440px] flex flex-col justify-between">
+  if (loading) 
+  return <Loader />;
 
+  if (error)
+    return (
+      <div className="h-[60vh] flex justify-center items-center">
+        <div>
+          <p className="text-2xl">
+            Whoops! An error occurred while fetching this listing.
+          </p>
+          <Link
+            to="/"
+            className="flex items-center text-2xl mt-4 gap-4 hover:text-primary transition-all duration-200"
+          >
+            <MdArrowBack />
+            <span>Back to Home</span>
+          </Link>
         </div>
       </div>
-  </div>;
-  if (error) return <div>Error</div>;
+    );
 
   return (
     <div>
