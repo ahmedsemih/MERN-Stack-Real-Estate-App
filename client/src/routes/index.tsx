@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 
-import { Home, Login, Signup, CreateListing } from "../pages";
+import { Home, Login, Signup, CreateListing, Estate } from "../pages";
 
 const RoutesComponent = () => {
   return (
@@ -9,6 +9,7 @@ const RoutesComponent = () => {
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/create-listing" element={<CreateListing />} />
+      <Route path="/estate/:slug" element={<Estate />} />
     </Routes>
   );
 };

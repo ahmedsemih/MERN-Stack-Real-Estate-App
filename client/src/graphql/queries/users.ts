@@ -8,8 +8,12 @@ export const GET_USER = gql`
       email
       phone
       role
+      image
       verified
       createdAt
+      favorites {
+        _id
+      }
     }
   }
 `;
@@ -21,6 +25,7 @@ export const GET_USERS = gql`
       email
       phone
       role
+      image
       verified
       createdAt
     }
@@ -29,37 +34,38 @@ export const GET_USERS = gql`
 export const GET_FAVORITES = gql`
   query favorites($_id: ID!, $limit: Int, $offset: Int) {
     favorites(_id: $_id, limit: $limit, offset: $offset) {
-      _id
-      images
-      title
-      size
-      prize
-      seller {
         _id
-        name
-        phone
-        email
-      }
-      updatedAt
-      category
-      type {
-        name
-      }
-      detailedType {
-        name
-      }
-      location {
-        province {
+        images
+        title
+        size
+        price
+        seller {
+          _id
+          name
+          phone
+          email
+          image
+        }
+        updatedAt
+        category
+        type {
           name
         }
-        district {
+        detailedType {
           name
         }
-      }
-      details {
-        roomAndSaloon
-        floor
-        age
+        location {
+          province {
+            name
+          }
+          district {
+            name
+          }
+        }
+        details {
+          roomAndSaloon
+          floor
+          buildingYear
       }
     }
   }
