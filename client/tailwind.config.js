@@ -11,7 +11,7 @@ export default {
         xl: "1440px",
       },
       backgroundImage: {
-        "welcome-bg": "url('./assets/welcome-bg.jpg')",
+        "welcome-bg": "url('/assets/welcome-bg.jpg')",
       },
     },
     colors: {
