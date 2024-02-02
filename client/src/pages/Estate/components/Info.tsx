@@ -3,7 +3,7 @@ import moment from "moment";
 
 import { Estate } from "@/types";
 import formatPrice from "@/utils/formatPrice";
-import { FavoriteButton } from "@/components/ui";
+import { FavoriteButton, EditButton } from "@/components/ui";
 
 type Props = {
   estate: Estate;
@@ -12,14 +12,22 @@ type Props = {
 const Info: FC<Props> = ({ estate }) => {
   return (
     <section className="w-full bg-bgColor-soft rounded-lg border border-borderColor p-4">
-      <div className="relative pr-10">
-        <h1 className="sm:text-3xl text-2xl mr-2">{estate.title}</h1>
-        <FavoriteButton
-          className="top-[0px] right-[0px]"
-          estateId={estate._id}
-        />
+      <div className="flex md:flex-row flex-col justify-between md:items-center gap-2">
+        <h1 className="sm:text-3xl text-2xl">{estate.title}</h1>
+      <p className="text-3xl mt-2 font-semibold block md:hidden">{formatPrice(estate.price)}</p>
+        <div className="flex">
+          <EditButton
+            estateId={estate._id}
+            sellerId={estate.seller._id}
+            className="relative top-[0px] left-[0px]"
+          />
+          <FavoriteButton
+            className="top-[0px] right-[0px] relative"
+            estateId={estate._id}
+          />
+        </div>
       </div>
-      <p className="text-3xl mt-2 font-semibold">{formatPrice(estate.price)}</p>
+      <p className="text-3xl mt-2 font-semibold hidden md:block">{formatPrice(estate.price)}</p>
       <div className="pt-8">
         <h3 className="text-2xl font-semibold mb-3">Estate Informations</h3>
         <div className="text-xl flex md:flex-row flex-col md:gap-4 gap-2">

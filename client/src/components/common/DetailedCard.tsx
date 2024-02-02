@@ -3,9 +3,9 @@ import { MdLocationPin } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 
 import { Estate } from "@/types";
-import { FavoriteButton } from "../ui";
 import formatPrice from "@/utils/formatPrice";
 import generateSlug from "@/utils/generateSlug";
+import { EditButton, FavoriteButton } from "../ui";
 
 const DetailedCard = ({ estate }: { estate: Estate }) => {
   const navigate = useNavigate();
@@ -25,6 +25,7 @@ const DetailedCard = ({ estate }: { estate: Estate }) => {
           alt={estate.title}
         />
         <FavoriteButton estateId={estate._id} className="left-2 right-auto" />
+        <EditButton estateId={estate._id} sellerId={estate.seller._id} className="bottom-2 top-auto" />
       </div>
       <div
         onClick={handleClickCard}

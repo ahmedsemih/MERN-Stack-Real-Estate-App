@@ -2,9 +2,9 @@ import moment from "moment";
 import { useNavigate } from "react-router-dom";
 
 import { Estate } from "@/types";
-import { FavoriteButton } from "../ui";
 import formatPrice from "@/utils/formatPrice";
 import generateSlug from "@/utils/generateSlug";
+import { FavoriteButton, EditButton } from "../ui";
 
 const GridCard = ({ estate }: { estate: Estate }) => {
   const navigate = useNavigate();
@@ -24,6 +24,7 @@ const GridCard = ({ estate }: { estate: Estate }) => {
           alt={estate.title}
         />
         <FavoriteButton estateId={estate._id} />
+        <EditButton estateId={estate._id} sellerId={estate.seller._id} />
       </div>
       <div
         onClick={handleClickCard}
