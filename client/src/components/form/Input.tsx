@@ -22,7 +22,7 @@ const Input: FC<Props> = forwardRef(
     if (type === "password")
       return (
         <div className="w-full">
-          <label className="text-xl text-textColor-soft">{label}</label>
+          <label className="text-xl text-textColor font-semibold">{label}</label>
           <div className="w-full rounded-lg relative">
             <input
               // @ts-expect-error type diff
