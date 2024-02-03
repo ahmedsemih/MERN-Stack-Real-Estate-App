@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { MdArrowBack } from "react-icons/md";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import {
   Carousel,
@@ -14,10 +14,10 @@ import {
 import { GET_ESTATE } from "@/graphql/queries/estates";
 
 const Estate = () => {
-  const location = useLocation();
+  const params = useParams();
 
   const { data, loading, error } = useQuery(GET_ESTATE, {
-    variables: { _id: location.state._id },
+    variables: { _id: params.id },
   });
 
   if (loading) 
