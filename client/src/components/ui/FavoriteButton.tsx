@@ -21,7 +21,7 @@ const FavoriteButton: FC<Props> = ({ estateId, className }) => {
 
   const { loading } = useQuery(GET_USER, {
     variables: { _id: user?._id },
-    fetchPolicy: 'no-cache',
+    fetchPolicy: "no-cache",
     onCompleted: ({ user }) => {
       user?.favorites.forEach((estate: Estate) => {
         if (estateId === estate._id) 
@@ -50,20 +50,19 @@ const FavoriteButton: FC<Props> = ({ estateId, className }) => {
     else addFavorite({ variables: { _id: user._id, estateId } });
   };
 
-  if (loading) return null;
-
-  return (
-    <button
-      disabled={addLoading || removeLoading || loading}
-      onClick={handleFavorite}
-      className={
-        "absolute top-2 right-2 z-30 text-4xl rounded-full hover:text-textColor-soft transition-all duration-200 " +
-        className
-      }
-    >
-      {isFavorite ? <MdFavorite /> : <MdFavoriteBorder />}
-    </button>
-  );
+  if (!loading)
+    return (
+      <button
+        disabled={addLoading || removeLoading || loading}
+        onClick={handleFavorite}
+        className={
+          "absolute p-2 bg-bgColor-soft top-2 right-2 z-30 text-4xl hover:text-textColor-soft rounded-full transition-all duration-200 " +
+          className
+        }
+      >
+        {isFavorite ? <MdFavorite /> : <MdFavoriteBorder />}
+      </button>
+    );
 };
 
 export default FavoriteButton;
