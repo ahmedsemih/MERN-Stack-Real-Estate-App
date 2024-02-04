@@ -4,7 +4,7 @@ import { useAuthStore } from "@/store/authStore";
 import { FeedRenderer } from "@/components/common";
 import { GET_ESTATES_BY_SELLER } from "@/graphql/queries/estates";
 
-const Listings = () => {
+const ListingsPage = () => {
   const user = useAuthStore((state) => state.user);
   const { data, loading, error } = useQuery(GET_ESTATES_BY_SELLER, {
     variables: { sellerId: user?._id },
@@ -27,4 +27,4 @@ const Listings = () => {
   );
 };
 
-export default Listings;
+export default ListingsPage;

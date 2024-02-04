@@ -4,7 +4,7 @@ import { useAuthStore } from "@/store/authStore";
 import { FeedRenderer } from "@/components/common";
 import { GET_FAVORITES } from "@/graphql/queries/users";
 
-const Favorites = () => {
+const FavoritesPage = () => {
   const user = useAuthStore((state) => state.user);
   const { data, loading, error } = useQuery(GET_FAVORITES, {
     variables: { _id: user?._id }, fetchPolicy: 'no-cache'
@@ -27,4 +27,4 @@ const Favorites = () => {
   );
 };
 
-export default Favorites;
+export default FavoritesPage;
