@@ -1,15 +1,23 @@
 import { FaSearch } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FC, FormEvent, useState } from "react";
 
-const Searchbar = ({ onWelcome }: { onWelcome: boolean }) => {
+type Props = {
+  onWelcome: boolean;
+  closeAll?: () => void;
+};
+
+const Searchbar: FC<Props> = ({ onWelcome, closeAll }) => {
   const navigate = useNavigate();
   const [search, setSearch] = useState<string>("");
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (search && search.trim() !== "") return navigate(`/search?q=${search}`);
+    if (search && search.trim() !== "") {
+      closeAll && closeAll();
+      return navigate(`/search?q=${search}`);
+    }
   };
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -22,8 +30,8 @@ const Searchbar = ({ onWelcome }: { onWelcome: boolean }) => {
       onSubmit={handleSubmit}
     >
       <input
-        className={`w-full p-2 border-none outline-none rounded-l-xl indent-2 ${
-          onWelcome ? "bg-white" : "bg-bgColor-soft text-textColor"
+        className={`w-full p-2 outline-none rounded-l-xl indent-2 ${
+          onWelcome ? "bg-white" : "bg-bgColor-soft text-textColor border-l border-y border-borderColor"
         }`}
         placeholder="Search for a location or listing title..."
         type="text"
@@ -31,7 +39,7 @@ const Searchbar = ({ onWelcome }: { onWelcome: boolean }) => {
       />
       <button
         className={`p-3 rounded-r-xl hover:opacity-80 transition-opacity duration-200 ${
-          onWelcome ? "bg-white" : "bg-bgColor-soft text-textColor-soft"
+          onWelcome ? "bg-white" : "bg-bgColor-soft text-textColor-soft border-r border-y border-borderColor"
         }`}
         type="submit"
       >
