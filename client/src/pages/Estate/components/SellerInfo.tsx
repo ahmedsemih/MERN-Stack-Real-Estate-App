@@ -26,14 +26,14 @@ const SellerInfo: FC<Props> = ({ seller }) => {
 
   const handleClickSeller = () => {
     const sellerSlug = generateSlug(seller.name);
-    navigate(`/seller/${sellerSlug}`, { state: { _id: seller._id } });
+    navigate(`/seller/${sellerSlug}/${seller._id}`);
   };
 
   return (
     <aside className="col-span-1 bg-bgColor-soft rounded-lg p-4 border border-borderColor md:h-[440px] flex flex-col justify-between">
       <div className="w-full flex flex-col items-center gap-2 pt-8">
         <img
-          className="rounded-full border border-borderColor w-[96px] h-[96px] cursor-pointer"
+          className="rounded-full border border-borderColor w-[96px] h-[96px] cursor-pointer object-cover content-center "
           src={seller.image}
           alt={seller.name}
           width={128}
@@ -46,7 +46,7 @@ const SellerInfo: FC<Props> = ({ seller }) => {
             Joined at {moment(Number(seller.createdAt)).format("MMM, YYYY")}
           </p>
         </div>
-        {!seller.verified && (
+        {seller.verified && (
           <div className="flex items-center gap-1 text-lg mt-1">
             <MdVerified />
             <span className="capitalize">verified seller</span>

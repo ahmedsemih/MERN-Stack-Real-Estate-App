@@ -5,6 +5,7 @@ export type User = {
   email: string;
   password: string;
   favorites?: Estate;
+  image: string;
   role: "admin" | "user" | "banned";
   verified: boolean;
   createdAt: string;
