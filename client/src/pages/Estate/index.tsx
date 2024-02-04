@@ -1,6 +1,5 @@
 import { useQuery } from "@apollo/client";
-import { MdArrowBack } from "react-icons/md";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import {
   Carousel,
@@ -11,9 +10,10 @@ import {
   Location,
   SellerInfo,
 } from "./components";
+import { Error } from "@/components/common";
 import { GET_ESTATE } from "@/graphql/queries/estates";
 
-const Estate = () => {
+const EstatePage = () => {
   const params = useParams();
 
   const { data, loading, error } = useQuery(GET_ESTATE, {
@@ -24,22 +24,7 @@ const Estate = () => {
   return <Loader />;
 
   if (error)
-    return (
-      <div className="h-[60vh] flex justify-center items-center">
-        <div>
-          <p className="text-2xl">
-            Whoops! An error occurred while fetching this listing.
-          </p>
-          <Link
-            to="/"
-            className="flex items-center text-2xl mt-4 gap-4 hover:text-primary transition-all duration-200"
-          >
-            <MdArrowBack />
-            <span>Back to Home</span>
-          </Link>
-        </div>
-      </div>
-    );
+    return <Error message="Whoops! An error occurred while fetching this listing." />
 
   return (
     <div>
@@ -57,4 +42,4 @@ const Estate = () => {
   );
 };
 
-export default Estate;
+export default EstatePage;
