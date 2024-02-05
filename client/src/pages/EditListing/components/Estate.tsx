@@ -80,7 +80,7 @@ const Estate: FC<Props> = ({ estate }) => {
           })}
         />
       </div>
-      <ExistingImages images={estate.images} />
+      <ExistingImages images={estate.images} setValue={setValue} />
       <FileInput
         label="Upload New"
         // @ts-expect-error type diff

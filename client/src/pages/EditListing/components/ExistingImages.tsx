@@ -1,5 +1,5 @@
-import { useForm } from "react-hook-form";
 import { FC, useState } from "react";
+import { UseFormSetValue } from "react-hook-form";
 import { FaArrowCircleLeft, FaArrowCircleRight } from "react-icons/fa";
 
 import { EstateInputs } from "..";
@@ -7,10 +7,10 @@ import { BasicButton } from "@/components/ui";
 
 type Props = {
   images: string[];
+  setValue: UseFormSetValue<EstateInputs>;
 };
 
-const ExistingImages: FC<Props> = ({ images }) => {
-  const { setValue } = useForm<EstateInputs>();
+const ExistingImages: FC<Props> = ({ images, setValue }) => {
   const [currentImage, setCurrentImage] = useState<number>(0);
   const [imageUrls, setImageUrls] = useState<string[]>(images);
 
