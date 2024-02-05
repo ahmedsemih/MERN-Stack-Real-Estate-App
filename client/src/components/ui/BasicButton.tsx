@@ -1,5 +1,5 @@
 import { FC, ReactNode } from "react";
-import Loader from '/assets/rolling-loader.svg';
+import { BiLoaderAlt } from "react-icons/bi";
 
 type Props = {
   variant?: "contained" | "outlined";
@@ -7,7 +7,7 @@ type Props = {
   type?: "button" | "submit" | "reset";
   className?: string;
   disabled?: boolean;
-  loading: boolean;
+  loading?: boolean;
   children: ReactNode;
   onClick?: VoidFunction;
 };
@@ -28,16 +28,16 @@ const BasicButton: FC<Props> = ({
       onClick={onClick}
       disabled={disabled || loading}
       className={
-        `min-h-[40px] font-semibold py-2 px-4 transition-all duration-200 flex items-center justify-center hover:bg-secondary outline-1 focus:bg-secondary outline-none disabled:opacity-80 disabled:bg-secondary
+        `min-h-[40px] font-semibold py-2 px-4 transition-all duration-200 flex items-center justify-center hover:bg-secondary outline-1 focus:bg-secondary outline-none disabled:opacity-70 disabled:bg-secondary
           ${
             variant === "contained"
-              ? `bg-primary text-white border-none`
-              : `border-2 border-primary bg-transparent hover:border-secondary text-primary hover:text-white`
+              ? `bg-primary text-white border border-primary`
+              : `border-2 border-primary bg-transparent hover:border-secondary disabled:text-primary disabled:bg-transparent disabled:hover:border-primary text-primary hover:text-white focus:text-white`
           } 
           ${radius === "small" ? "rounded-lg " : "rounded-2xl "} ` + className
       }
     >
-      {loading ? <img className="w-6" src={Loader} alt="loader" /> : children}
+      {loading ? <BiLoaderAlt className="w-6 h-6 animate-spin" /> : children}
     </button>
   );
 };
