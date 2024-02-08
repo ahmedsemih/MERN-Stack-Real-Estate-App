@@ -4,7 +4,7 @@ export const GET_DETAILS = gql`
   query details($_id: ID!) {
     details {
       _id
-      age
+      buildingYear
       roomAndSaloon
       floor
       locatedFloor

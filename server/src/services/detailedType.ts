@@ -9,17 +9,19 @@ export type UpdateParams = CreateParams & { _id: string };
 
 class DetailedTypeServices {
   public static async getDetailedType(_id: string) {
-    const detailedType = await DetailedType.findById(_id);
+    const detailedType = await DetailedType.findById(_id).populate("parent");
     return detailedType;
   }
 
   public static async getDetailedTypes() {
-    const detailedTypes = await DetailedType.find({});
+    const detailedTypes = await DetailedType.find({}).populate("parent");
     return detailedTypes;
   }
 
   public static async getDetailedTypesByParent(parentId: string) {
-    const detailedTypes = await DetailedType.find({ parent: parentId});
+    const detailedTypes = await DetailedType.find({
+      parent: parentId,
+    });
     return detailedTypes;
   }
 

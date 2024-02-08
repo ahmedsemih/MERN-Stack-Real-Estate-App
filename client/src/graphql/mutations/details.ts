@@ -2,7 +2,7 @@ import { gql } from "@apollo/client";
 
 export const CREATE_DETAILS = gql`
   mutation createDetails(
-    $age: Int!
+    $buildingYear: Int!
     $roomAndSaloon: String!
     $floor: Int!
     $locatedFloor: Int!
@@ -19,7 +19,7 @@ export const CREATE_DETAILS = gql`
     $heatingType: String!
   ) {
     createDetails(
-      age: $age
+      buildingYear: $buildingYear
       roomAndSaloon: $roomAndSaloon
       floor: $floor
       locatedFloor: $locatedFloor
@@ -36,7 +36,7 @@ export const CREATE_DETAILS = gql`
       heatingType: $heatingType
     ) {
       _id
-      age
+      buildingYear
       roomAndSaloon
       floor
       locatedFloor
@@ -57,7 +57,7 @@ export const CREATE_DETAILS = gql`
 export const UPDATE_DETAILS = gql`
   mutation updateDetails(
     $_id: ID!
-    $age: Int
+    $buildingYear: Int
     $roomAndSaloon: String
     $floor: Int
     $locatedFloor: Int
@@ -75,7 +75,7 @@ export const UPDATE_DETAILS = gql`
   ) {
     updateDetails(
       _id: $_id
-      age: $age
+      buildingYear: $buildingYear
       roomAndSaloon: $roomAndSaloon
       floor: $floor
       locatedFloor: $locatedFloor
@@ -92,7 +92,7 @@ export const UPDATE_DETAILS = gql`
       heatingType: $heatingType
     ) {
       _id
-      age
+      buildingYear
       roomAndSaloon
       floor
       locatedFloor

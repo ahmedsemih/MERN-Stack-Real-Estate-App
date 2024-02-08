@@ -32,7 +32,7 @@ class LocationService {
   public static async updateLocation(params: UpdateParams) {
     const location = await Location.findByIdAndUpdate(params._id, params, {
       new: true,
-    });
+    }).populate(['province', 'district']);
     return location;
   }
 }

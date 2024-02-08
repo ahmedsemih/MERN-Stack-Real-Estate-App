@@ -1,8 +1,7 @@
 import Details from "../models/Details";
 
 export type CreateParams = {
-  body: {
-    age: number;
+    buildingYear: number;
     roomAndSaloon: string;
     floor: number;
     locatedFloor: number;
@@ -17,7 +16,6 @@ export type CreateParams = {
     fittedBathroom: boolean;
     parquet: boolean;
     heatingType: string;
-  }
 };
 
 export type UpdateParams = CreateParams & { _id: string };
@@ -29,12 +27,12 @@ class DetailsService {
   }
 
   public static async createDetails(params: CreateParams) {
-    const details = await Details.create(params.body);
+    const details = await Details.create(params);
     return details;
   }
 
   public static async updateDetails(params: UpdateParams) {
-    const details = await Details.findByIdAndUpdate(params._id, params.body, {
+    const details = await Details.findByIdAndUpdate(params._id, params, {
       new: true,
     });
     return details;

@@ -2,7 +2,7 @@ import { Schema, model, models } from "mongoose";
 
 const DetailsSchema = new Schema(
   {
-    age: Number,
+    buildingYear: Number,
     roomAndSaloon: String,
     floor: Number,
     locatedFloor: Number,

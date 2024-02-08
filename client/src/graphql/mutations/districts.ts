@@ -5,9 +5,6 @@ export const CREATE_DISTRICT = gql`
     createDistrict(name: $name, province: $province) {
       _id
       name
-      province {
-        _id
-      }
     }
   }
 `;

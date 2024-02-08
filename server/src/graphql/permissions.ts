@@ -19,7 +19,7 @@ const permissions = shield({
     notifications: and(isAuthenticated, isAdmin),
   },
   Mutation: {
-    updateUser: and(isAuthenticated, isAdmin),
+    updateUser: isAuthenticated,
     addFavorite: isAuthenticated,
     removeFavorite: isAuthenticated,
     createType: and(isAuthenticated, isAdmin),

@@ -9,7 +9,7 @@ const DetailedTypeSchema = new Schema(
     },
     parent: {
       type: Schema.Types.ObjectId,
-      ref: "type",
+      ref: "Type",
       required: true,
     },
   },

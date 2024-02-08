@@ -13,7 +13,9 @@ export const GET_ESTATE = gql`
         name
         phone
         email
+        image
         verified
+        createdAt
       }
       size
       status
@@ -21,6 +23,7 @@ export const GET_ESTATE = gql`
       updatedAt
       category
       location {
+        _id
         province {
           _id
           name
@@ -42,7 +45,7 @@ export const GET_ESTATE = gql`
       }
       details {
         _id
-        age
+        buildingYear
         roomAndSaloon
         floor
         locatedFloor
@@ -74,6 +77,7 @@ export const GET_ESTATES = gql`
         name
         phone
         email
+        image
         verified
       }
       size
@@ -103,7 +107,7 @@ export const GET_ESTATES = gql`
       }
       details {
         _id
-        age
+        buildingYear
         roomAndSaloon
         floor
         locatedFloor
@@ -125,6 +129,7 @@ export const GET_ESTATES_BY_SELLER = gql`
         name
         phone
         email
+        image
         verified
       }
       size
@@ -154,7 +159,7 @@ export const GET_ESTATES_BY_SELLER = gql`
       }
       details {
         _id
-        age
+        buildingYear
         roomAndSaloon
         floor
         locatedFloor
@@ -174,21 +179,23 @@ export const GET_ESTATES_BY_FILTER = gql`
     $detailedType: ID
     $province: ID
     $district: ID
+    $sortBy: String!
+    $order: String!
     $limit: Int
     $offset: Int
   ) {
     estatesByFilter(
-      body: {
-        minPrice: $minPrice
-        maxPrice: $maxPrice
-        minSize: $minSize
-        maxSize: $maxSize
-        category: $category
-        type: $type
-        detailedType: $detailedType
-        province: $province
-        district: $district
-      }
+      minPrice: $minPrice
+      maxPrice: $maxPrice
+      minSize: $minSize
+      maxSize: $maxSize
+      category: $category
+      type: $type
+      detailedType: $detailedType
+      province: $province
+      district: $district
+      sortBy: $sortBy
+      order: $order
       limit: $limit
       offset: $offset
     ) {
@@ -202,6 +209,7 @@ export const GET_ESTATES_BY_FILTER = gql`
         name
         phone
         email
+        image
         verified
       }
       size
@@ -231,7 +239,7 @@ export const GET_ESTATES_BY_FILTER = gql`
       }
       details {
         _id
-        age
+        buildingYear
         roomAndSaloon
         floor
         locatedFloor
@@ -253,6 +261,7 @@ export const GET_ESTATES_SORTED_BY_DATE = gql`
         name
         phone
         email
+        image
         verified
       }
       size
@@ -282,7 +291,7 @@ export const GET_ESTATES_SORTED_BY_DATE = gql`
       }
       details {
         _id
-        age
+        buildingYear
         roomAndSaloon
         floor
         locatedFloor
@@ -304,6 +313,7 @@ export const GET_ESTATES_SORTED_BY_PRICE = gql`
         name
         phone
         email
+        image
         verified
       }
       size
@@ -333,7 +343,72 @@ export const GET_ESTATES_SORTED_BY_PRICE = gql`
       }
       details {
         _id
-        age
+        buildingYear
+        roomAndSaloon
+        floor
+        locatedFloor
+        bathroom
+      }
+    }
+  }
+`;
+
+export const GET_ESTATES_BY_SEARCH = gql`
+  query estatesBySearch(
+    $search: String!
+    $sortBy: String!
+    $order: String!
+    $limit: Int
+    $offset: Int
+  ) {
+    estatesBySearch(
+      search: $search
+      sortBy: $sortBy
+      order: $order
+      limit: $limit
+      offset: $offset
+    ) {
+      _id
+      images
+      title
+      description
+      price
+      seller {
+        _id
+        name
+        phone
+        email
+        image
+        verified
+      }
+      size
+      status
+      createdAt
+      updatedAt
+      category
+      location {
+        province {
+          _id
+          name
+          code
+        }
+        district {
+          _id
+          name
+        }
+        address
+      }
+      type {
+        _id
+        name
+      }
+      detailedType {
+        _id
+        name
+      }
+      details {
+        _id
+        buildingYear
         roomAndSaloon
         floor
         locatedFloor

@@ -34,38 +34,39 @@ export const GET_USERS = gql`
 export const GET_FAVORITES = gql`
   query favorites($_id: ID!, $limit: Int, $offset: Int) {
     favorites(_id: $_id, limit: $limit, offset: $offset) {
+      _id
+      images
+      title
+      size
+      price
+      seller {
         _id
-        images
-        title
-        size
-        price
-        seller {
-          _id
-          name
-          phone
-          email
-          image
-        }
-        updatedAt
-        category
-        type {
-          name
-        }
-        detailedType {
+        name
+        phone
+        email
+        image
+      }
+      updatedAt
+      category
+      type {
+        name
+      }
+      detailedType {
+        name
+      }
+      location {
+        province {
           name
         }
-        location {
-          province {
-            name
-          }
-          district {
-            name
-          }
+        district {
+          name
         }
-        details {
-          roomAndSaloon
-          floor
-          buildingYear
+      }
+      details {
+        roomAndSaloon
+        floor
+        buildingYear
+        locatedFloor
       }
     }
   }

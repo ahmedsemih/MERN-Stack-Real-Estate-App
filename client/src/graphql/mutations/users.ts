@@ -5,14 +5,16 @@ export const UPDATE_USER = gql`
     $_id: ID!
     $email: String
     $phone: String
+    $image: String
     $verified: Boolean
   ) {
-    updateUser(_id: $_id, email: $email, phone: $phone, verified: $verified) {
+    updateUser(_id: $_id, email: $email, phone: $phone, image: $image verified: $verified) {
       _id
       name
       email
       phone
       role
+      image
       verified
       createdAt
     }
@@ -22,9 +24,6 @@ export const ADD_FAVORITE = gql`
   mutation addFavorite($_id: ID!, $estateId: ID!) {
     addFavorite(_id: $_id, estateId: $estateId) {
       _id
-      favorites {
-        _id
-      }
     }
   }
 `;
@@ -32,9 +31,6 @@ export const REMOVE_FAVORITE = gql`
   mutation removeFavorite($_id: ID!, $estateId: ID!) {
     removeFavorite(_id: $_id, estateId: $estateId) {
       _id
-      favorites {
-        _id
-      }
     }
   }
 `;

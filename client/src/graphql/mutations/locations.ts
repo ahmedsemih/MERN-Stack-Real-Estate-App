@@ -8,16 +8,6 @@ export const CREATE_LOCATION = gql`
       address: $address
     ) {
       _id
-      province {
-        _id
-        code
-        name
-      }
-      district {
-        _id
-        name
-      }
-      address
     }
   }
 `;

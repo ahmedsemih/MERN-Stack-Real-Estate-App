@@ -21,51 +21,52 @@ export default `#graphql
         estate(_id: ID!): Estate
         estates(limit: Int, offset: Int): [Estate]
         estatesBySeller(sellerId: ID!, limit: Int, offset: Int): [Estate]
-        estatesByFilter(body: Filters, limit: Int, offset: Int): [Estate]
+        estatesByFilter(
+            minPrice: Int
+            maxPrice: Int
+            minSize: Int
+            maxSize: Int
+            category: String
+            type: ID
+            detailedType: ID
+            province: ID
+            district: ID
+            limit: Int
+            offset: Int
+            sortBy: String!
+            order: String!
+        ): [Estate]
         estatesSortedByDate(desc: Boolean!, limit: Int, offset: Int): [Estate]
         estatesSortedByPrice(desc: Boolean!, limit: Int, offset: Int): [Estate]
+        estatesBySearch(search: String!, sortBy: String!, order: String!, limit: Int, offset: Int): [Estate]
     }
 
     type Mutation {
-        createEstate(body: CreateInputs): Estate
-        updateEstate(_id: ID!, body: UpdateInputs): Estate
-    }
-
-    input Filters {
-        minPrice: Int
-        maxPrice: Int
-        minSize: Int
-        maxSize: Int
-        category: String
-        type: ID
-        detailedType: ID
-        province: ID
-        district: ID
-    }
-
-    input CreateInputs {
-        images: [String]!
-        title: String!
-        description: String!
-        price: Int!
-        seller: ID!
-        size: Int!
-        category: String!
-        location: ID!
-        type: ID!
-        detailedType: ID!
-        details: ID
-    }
-
-    input UpdateInputs {
-        images: [String]
-        title: String
-        description: String
-        price: Int
-        size: Int
-        category: String
-        type: ID
-        detailedType: ID
+        createEstate(
+            images: [String]!
+            title: String!
+            description: String!
+            price: Int!
+            seller: ID!
+            size: Int!
+            category: String!
+            location: ID!
+            type: ID!
+            detailedType: ID!
+            details: ID
+        ): Estate
+        updateEstate(
+            _id: ID!,
+            images: [String]
+            title: String
+            description: String
+            price: Int
+            status: Boolean
+            size: Int
+            category: String
+            type: ID
+            detailedType: ID
+        ): Estate
     }
 
     enum Categories {

@@ -4,8 +4,9 @@ export default `#graphql
         name: String!
         phone: String!
         email: String!
+        image: String!
         password: String!
-        favorites: Estate
+        favorites: [Estate]
         role(roles: Roles): String!
         verified: Boolean!
         createdAt: String!
@@ -22,7 +23,7 @@ export default `#graphql
         register(name: String!, password: String!, phone: String!, email: String!): User
         login(email: String!, password: String!): String
         logout(_id: ID!): Boolean
-        updateUser(_id: ID!, phone: String, email: String, verified: Boolean, refreshToken: String): User
+        updateUser(_id: ID!, phone: String, email: String, verified: Boolean, refreshToken: String, image: String): User
         addFavorite(_id: ID!, estateId: ID!): User
         removeFavorite(_id: ID!, estateId: ID!): User
     }

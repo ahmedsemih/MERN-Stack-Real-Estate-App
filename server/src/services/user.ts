@@ -5,22 +5,37 @@ export type UpdateParams = {
   phone?: string;
   email?: string;
   verified?: boolean;
+  image?: string;
   refreshToken?: string;
 };
 
 export type SetFavoriteParams = {
-  userId: string;
+  _id: string;
   estateId: string;
 };
 
 class UserService {
   public static async getUserById(_id: string) {
-    const user = await User.findById(_id).populate("favorites");
+    const user = await User.findById(_id).populate([
+      {
+        path: "favorites",
+        populate: [
+          {
+            path: "location",
+            populate: [{ path: "province" }, { path: "district" }],
+          },
+          { path: "details" },
+          { path: "type" },
+          { path: "detailedType" },
+          { path: "seller" },
+        ],
+      },
+    ]);
     return user;
   }
 
   public static async getUserByEmail(email: string) {
-    const user = await User.findOne({ email }).populate("favorites");
+    const user = await User.findOne({ email });
     return user;
   }
 
@@ -32,17 +47,36 @@ class UserService {
     return users;
   }
 
+  public static async getUsersByFavorite(estateId: string) {
+    const users = await User.find({ favorites: estateId });
+    return users;
+  }
+
   public static async getFavorites(
     _id: string,
     limit?: number,
     offset?: number
   ) {
-    const favorites = await User.findById(_id)
+    const user = await User.findById(_id)
       .select("favorites")
-      .populate("favorites")
+      .populate([
+        {
+          path: "favorites",
+          populate: [
+            {
+              path: "location",
+              populate: [{ path: "province" }, { path: "district" }],
+            },
+            { path: "details" },
+            { path: "type" },
+            { path: "detailedType" },
+            { path: "seller" },
+          ],
+        },
+      ])
       .limit(limit)
       .skip(offset);
-    return favorites;
+    return user?.favorites ? user?.favorites : [];
   }
 
   public static async updateUser(params: UpdateParams) {
@@ -54,23 +88,23 @@ class UserService {
 
   public static async addFavorite(params: SetFavoriteParams) {
     const user = await User.findByIdAndUpdate(
-      params.userId,
+      params._id,
       {
         $push: { favorites: params.estateId },
       },
       { new: true }
-    );
+    ).populate("favorites");
     return user;
   }
 
   public static async removeFavorite(params: SetFavoriteParams) {
     const user = await User.findByIdAndUpdate(
-      params.userId,
+      params._id,
       {
         $pull: { favorites: params.estateId },
       },
       { new: true }
-    );
+    ).populate("favorites");
     return user;
   }
 }

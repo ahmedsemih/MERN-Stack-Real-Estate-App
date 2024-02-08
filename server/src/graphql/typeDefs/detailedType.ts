@@ -2,7 +2,7 @@ export default `#graphql
     type DetailedType {
         _id: ID!
         name: String!
-        parent: ID!
+        parent: Type!
     }
 
     type Query {

@@ -5,10 +5,6 @@ export const createDetailedType = gql`
     createDetailedType(name: $name, parent: $parent) {
       _id
       name
-      parent {
-        _id
-        name
-      }
     }
   }
 `;

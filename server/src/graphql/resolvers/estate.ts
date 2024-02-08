@@ -25,15 +25,8 @@ export default {
       );
       return estates;
     },
-    async estatesByFilter(
-      _: any,
-      args: { body: FilterParams; limit?: number; offset?: number }
-    ) {
-      const estates = await EstateService.getEstatesByFilter(
-        args.body,
-        args.limit,
-        args.offset
-      );
+    async estatesByFilter(_: any, args: FilterParams) {
+      const estates = await EstateService.getEstatesByFilter(args);
       return estates;
     },
     async estatesSortedByDate(
@@ -53,6 +46,25 @@ export default {
     ) {
       const estates = await EstateService.getEstatesSortedByPrice(
         args.desc,
+        args.limit,
+        args.offset
+      );
+      return estates;
+    },
+    async estatesBySearch(
+      _: any,
+      args: {
+        search: string;
+        sortBy: string;
+        order: string;
+        limit?: number;
+        offset?: number;
+      }
+    ) {
+      const estates = await EstateService.getEstatesBySearch(
+        args.search,
+        args.sortBy,
+        args.order,
         args.limit,
         args.offset
       );
