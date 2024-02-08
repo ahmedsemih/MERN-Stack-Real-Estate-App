@@ -37,7 +37,7 @@ const Welcome = () => {
               key={link.name}
               text={link.name}
               Icon={link.icon}
-              onClick={() => navigate("/search", { state: link.state })}
+              onClick={() => navigate(`/search${link.param}`)}
             />
           ))}
         </motion.div>

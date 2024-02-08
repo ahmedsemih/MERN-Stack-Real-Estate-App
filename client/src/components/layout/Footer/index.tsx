@@ -44,25 +44,22 @@ const Footer = () => {
           <div className="flex flex-col sm:items-start items-center">
             <h3 className="text-2xl font-semibold">Quick Links</h3>
             <Link
-              to={"/search"}
-              state={{ category: "sale" }}
+              to={"/search?category=sale"}
               className="text-lg hover:text-textColor text-textColor-soft transition-all duration-200 cursor-pointer"
             >
-              Sale{" "}
+              Sale
             </Link>
             <Link
-              to={"/search"}
-              state={{ category: "rent" }}
+              to={"/search?category=rent"}
               className="text-lg hover:text-textColor text-textColor-soft transition-all duration-200 cursor-pointer"
             >
-              Rent{" "}
+              Rent
             </Link>
             {data?.types.map((type: Type) => (
               <Link
                 className="text-lg hover:text-textColor text-textColor-soft transition-all duration-200 cursor-pointer capitalize"
                 key={type._id}
-                to={"/search"}
-                state={{ type: type._id }}
+                to={`/search?category=sale&type=${type._id}`}
               >
                 {type.name}
               </Link>

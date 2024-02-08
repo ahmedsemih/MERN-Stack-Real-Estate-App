@@ -31,7 +31,7 @@ const FeedRenderer: FC<RendererProps> = ({
 
   if (error)
     return (
-      <p className="text-2xl">{errorMessage ?? "Whoops! An error occurred."}</p>
+      <p className="text-2xl mt-4">{errorMessage ?? "Whoops! An error occurred."}</p>
     );
 
   if (estates.length > 0)
@@ -43,7 +43,7 @@ const FeedRenderer: FC<RendererProps> = ({
       />
     );
 
-  return <p className="text-2xl">{emptyMessage ?? "There is no listing."}</p>;
+  return <p className="text-2xl  mt-4">{emptyMessage ?? "There is no listing."}</p>;
 };
 
 export default FeedRenderer;
