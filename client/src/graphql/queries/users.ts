@@ -71,3 +71,9 @@ export const GET_FAVORITES = gql`
     }
   }
 `;
+
+export const REAUTHENTICATE = gql`
+  query reauthenticate {
+    reauthenticate
+  }
+`;

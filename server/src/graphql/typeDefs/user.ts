@@ -17,6 +17,7 @@ export default `#graphql
         user(_id: ID!): User
         users(limit: Int, offset: Int): [User]
         favorites(_id: ID!, limit: Int, offset: Int): [Estate]
+        reauthenticate: Boolean
     }
 
     type Mutation {

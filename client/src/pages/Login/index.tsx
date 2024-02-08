@@ -16,10 +16,10 @@ type Inputs = {
 
 const LoginPage = () => {
   const navigate = useNavigate();
-  const setToken = useAuthStore((state) => state.setToken);
+  const setUser = useAuthStore((state) => state.setUser);
   const [login, { loading }] = useMutation(LOGIN, {
     onCompleted: ({ login }) => {
-      setToken(login);
+      setUser(login);
       return navigate("/");
     },
     onError: () => {

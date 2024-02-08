@@ -22,6 +22,22 @@ type GenerateParams = {
   role: string;
 };
 
+type Token = {
+  _id: string;
+  role: string;
+  iat: number;
+  exp: number;
+};
+
+type Reauthenticate = {
+  user: {
+    _id: string;
+    role: string;
+  };
+  refreshToken: string;
+  accessToken: string;
+};
+
 class AuthService {
   public static async register(params: RegisterParams) {
     const { email, password } = params;
@@ -64,6 +80,51 @@ class AuthService {
 
   public static async logout(_id: string) {
     await UserService.updateUser({ _id, refreshToken: "" });
+  }
+
+  public static async reauthenticate(
+    refreshToken: string
+  ): Promise<null | Reauthenticate> {
+    try {
+      let user, newRefreshToken, newAccessToken;
+
+      const decoded: Token | any = jwt.verify(
+        refreshToken,
+        process.env.JWT_REFRESH_SECRET
+      );
+      const { _id, role } = decoded;
+
+      const isSame = await AuthService.checkRefreshToken(_id, refreshToken);
+      if (isSame) {
+        user = { _id, role };
+
+        newAccessToken = await AuthService.generateAccessToken({
+          _id,
+          role,
+        });
+        newRefreshToken = await AuthService.generateRefreshToken({
+          _id,
+          role,
+        });
+
+        await UserService.updateUser({
+          _id,
+          refreshToken,
+        });
+      }
+
+      return {
+        user,
+        accessToken: newAccessToken,
+        refreshToken: newRefreshToken,
+      };
+    } catch {
+      return {
+        user: null,
+        refreshToken: null,
+        accessToken: null,
+      };
+    }
   }
 
   public static async checkRefreshToken(_id: string, refreshToken: string) {

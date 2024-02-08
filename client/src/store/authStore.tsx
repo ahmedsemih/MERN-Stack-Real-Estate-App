@@ -7,43 +7,42 @@ type State = {
     _id: string;
     role: string;
   } | null;
-  token: string;
 };
 
 type Actions = {
-  setToken(token: string): void;
+  setUser(jwt: string): void;
   logOut(): void;
 };
 
 export const useAuthStore = create<State & Actions>((set) => {
-  const token = Cookies.get("access-token") || "";
-  let user: State["user"] = null;
-
-  if (token && token !== "") {
-    const decoded = jwtDecode<JwtPayload & { _id: string; role: string }>(
-      token
-    );
-    user = {
-      _id: decoded._id,
-      role: decoded.role,
-    };
-  }
+  const userCookie = Cookies.get("user");
+  const user = userCookie ? JSON.parse(userCookie) : null;
 
   return {
     user,
-    token,
-    setToken: (jwt: string) =>
+    setUser: (jwt: string) =>
       set((state) => {
-        Cookies.set("access-token", jwt, { sameSite: "none", secure: true });
+        const decoded = jwtDecode<JwtPayload & { _id: string; role: string }>(
+          jwt
+        );
 
-        return { ...state, token: jwt };
+        const user = {
+          _id: decoded._id,
+          role: decoded.role,
+        };
+
+        Cookies.set("user", JSON.stringify(user), {
+          sameSite: "Lax",
+          expires: 1000 * 60 * 30,
+        });
+
+        return { ...state, user };
       }),
     logOut: () =>
       set((state) => {
-        Cookies.remove("access-token");
+        Cookies.remove("user");
         state.user = null;
-        state.token = "";
-        
+
         return { ...state };
       }),
   };

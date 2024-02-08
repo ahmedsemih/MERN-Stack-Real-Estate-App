@@ -10,13 +10,50 @@ export default {
       const user = await UserService.getUserById(args._id);
       return user;
     },
-    async users(_:any, args: { limit?: number, offset?:number }) {
+    async users(_: any, args: { limit?: number; offset?: number }) {
       const users = await UserService.getUsers(args.limit, args.offset);
       return users;
     },
-    async favorites(_: any, args: { _id: string, limit?: number, offset?:number }) {
-      const favorites = await UserService.getFavorites(args._id, args.limit, args.offset);
+    async favorites(
+      _: any,
+      args: { _id: string; limit?: number; offset?: number }
+    ) {
+      const favorites = await UserService.getFavorites(
+        args._id,
+        args.limit,
+        args.offset
+      );
       return favorites;
+    },
+    async reauthenticate(_: any, args: null, { req, res }: any) {
+      const oldRefreshToken = req.cookies["refresh-token"];
+      
+      const { refreshToken, accessToken, user } = await AuthService.reauthenticate(oldRefreshToken);
+
+      if (refreshToken && accessToken && user) {
+        res.cookie("access-token", accessToken, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === "production",
+          maxAge: 1000 * 60 * 30,
+          sameSite: "Lax",
+        });
+        res.cookie("refresh-token", refreshToken, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === "production",
+          maxAge: 1000 * 60 * 60 * 24 * 7,
+          sameSite: "Lax",
+        });
+        res.cookie("user", user, {
+          httpOnly: false,
+          secure: process.env.NODE_ENV === "production",
+          maxAge: 1000 * 60 * 30,
+          sameSite: "Lax",
+        });
+
+        return true;
+      }
+
+      return false;
     },
   },
   Mutation: {
@@ -28,21 +65,23 @@ export default {
       const { accessToken, refreshToken } = await AuthService.login(args);
 
       res.cookie("access-token", accessToken, {
+        httpOnly: true,
         secure: process.env.NODE_ENV === "production",
         maxAge: 1000 * 60 * 30,
-        sameSite: "none",
+        sameSite: "Lax",
       });
       res.cookie("refresh-token", refreshToken, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
         maxAge: 1000 * 60 * 60 * 24 * 7,
-        sameSite: "none",
+        sameSite: "Lax",
       });
 
       return accessToken;
     },
     async logout(_: any, args: { _id: string }, { res }: any) {
       await AuthService.logout(args._id);
+      res.clearCookie("user");
       res.clearCookie("access-token");
       res.clearCookie("refresh-token");
 
