@@ -99,26 +99,33 @@ export const HOME_LINKS = [
   {
     icon: BsHouseFill,
     name: "Sale",
-    state: { category: "sale" },
+    param: "?category=sale",
   },
   {
     icon: HiKey,
     name: "Rent",
-    state: { category: "rent" },
+    param: "?category=rent",
   },
   {
     icon: HiHome,
     name: "House",
-    state: { type: "659a21caaa0a41b1452afefe" },
+    param: "?category=sale&type=659a21caaa0a41b1452afefe",
   },
   {
     icon: HiOfficeBuilding,
     name: "Workplace",
-    state: { type: "659a21c4aa0a41b1452afefb" },
+    param: "?category=sale&type=659a21c4aa0a41b1452afefb",
   },
   {
     icon: HiMap,
     name: "Land",
-    state: { type: "659a2209aa0a41b1452aff01" },
+    param: "?category=sale&type=659a2209aa0a41b1452aff01",
   },
+];
+
+export const SORT_OPTIONS = [
+  { name: "Newest", value: "date-desc" },
+  { name: "Oldest", value: "date-asc" },
+  { name: "Highest Price", value: "price-desc" },
+  { name: "Lowest Price", value: "price-asc" },
 ];

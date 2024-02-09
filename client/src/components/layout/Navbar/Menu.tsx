@@ -2,7 +2,7 @@ import { useState } from "react";
 import { IoIosMenu } from "react-icons/io";
 import { useMutation } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
-import { MdLogout, MdSettings } from "react-icons/md";
+import { MdLogout, MdSettings, MdSpaceDashboard } from "react-icons/md";
 
 import NavButton from "./NavButton";
 import Searchbar from "./Searchbar";
@@ -18,7 +18,7 @@ const Menu = () => {
   const [logout] = useMutation(LOGOUT);
   const { user, logOut } = useAuthStore((state) => state);
   const { theme, setTheme } = useThemeStore((state) => state);
-  
+
   const [isOpen, setIsOpen] = useState(false);
   const [isPreferencesOpen, setIsPreferencesOpen] = useState<boolean>(false);
 
@@ -36,12 +36,12 @@ const Menu = () => {
   const closeAll = () => {
     setIsOpen(false);
     setIsPreferencesOpen(false);
-  }
+  };
 
   const handleNavigate = (link: string) => {
     navigate(link);
     closeAll();
-  } 
+  };
 
   return (
     <div className="md:hidden block relative">
@@ -85,6 +85,13 @@ const Menu = () => {
                   }}
                 />
               ))}
+              {user.role === "admin" && (
+                <NavButton
+                  Icon={MdSpaceDashboard}
+                  name="Admin Panel"
+                  onClick={() => handleNavigate(`/admin/dashboard`)}
+                />
+              )}
               <div className="relative w-full">
                 <button
                   onClick={() => setIsPreferencesOpen((prev) => !prev)}

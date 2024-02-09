@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
-import { MdLogout, MdSettings } from "react-icons/md";
+import { MdLogout, MdSettings, MdSpaceDashboard } from "react-icons/md";
 
 import { useAuthStore } from "@/store/authStore";
 import { useThemeStore } from "@/store/themeStore";
@@ -54,7 +54,15 @@ const UserMenu = () => {
             {link.name}
           </button>
         ))}
-
+        {user?.role === "admin" && (
+          <button
+            className="flex gap-3 items-center text-xl hover:bg-borderColor py-2 px-4 rounded-lg w-full capitalize"
+            onClick={() => handleClick("admin/dashboard")}
+          >
+            <MdSpaceDashboard />
+            Admin Panel
+          </button>
+        )}
         <div
           onMouseEnter={() => setIsPreferencesOpen(true)}
           onMouseLeave={() => setIsPreferencesOpen(false)}

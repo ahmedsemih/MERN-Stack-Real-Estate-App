@@ -16,7 +16,9 @@ import {
   EditListing,
   Notifications,
   Search,
+  Admin,
 } from "../pages";
+import AdminRoute from "./AdminRoute";
 import ProtectedRoute from "./ProtectedRoute";
 import { useAuthStore } from "@/store/authStore";
 import { REAUTHENTICATE } from "@/graphql/queries/users";
@@ -24,7 +26,7 @@ import { REAUTHENTICATE } from "@/graphql/queries/users";
 const RoutesComponent = () => {
   const navigate = useNavigate();
   const logOut = useAuthStore((state) => state.logOut);
-  
+
   const [reauthenticate] = useLazyQuery(REAUTHENTICATE, {
     onCompleted: ({ reauthenticate }) => {
       if (!reauthenticate) {
@@ -56,6 +58,9 @@ const RoutesComponent = () => {
         <Route path="/edit" element={<EditListing />} />
         <Route path="/create-listing" element={<CreateListing />} />
         <Route path="/notifications" element={<Notifications />} />
+        <Route element={<AdminRoute />}>
+          <Route path="/admin" element={<Admin />} />
+        </Route>
       </Route>
     </Routes>
   );
