@@ -14,7 +14,8 @@ const Buttons: FC<Props> = ({ defaultEmail, defaultPhone, loading }) => {
   const { phone, email, image } = watch();
 
   const haveChanges = useMemo(() => {
-    if (defaultEmail !== email || defaultPhone !== phone || image) return true;
+    if (defaultEmail !== email || defaultPhone !== phone || image !== undefined)
+      return true;
 
     return false;
   }, [email, phone, image, defaultEmail, defaultPhone]);
