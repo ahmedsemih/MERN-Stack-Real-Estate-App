@@ -1,4 +1,7 @@
-import { Routes, Route } from "react-router-dom";
+import Cookies from "js-cookie";
+import { useEffect } from "react";
+import { useLazyQuery } from "@apollo/client";
+import { Routes, Route, useNavigate } from "react-router-dom";
 
 import {
   Home,
@@ -15,8 +18,29 @@ import {
   Search,
 } from "../pages";
 import ProtectedRoute from "./ProtectedRoute";
+import { useAuthStore } from "@/store/authStore";
+import { REAUTHENTICATE } from "@/graphql/queries/users";
 
 const RoutesComponent = () => {
+  const navigate = useNavigate();
+  const logOut = useAuthStore((state) => state.logOut);
+  
+  const [reauthenticate] = useLazyQuery(REAUTHENTICATE, {
+    onCompleted: ({ reauthenticate }) => {
+      if (!reauthenticate) {
+        logOut();
+        navigate("/login");
+      }
+    },
+    fetchPolicy: "no-cache",
+  });
+
+  const userCookie = Cookies.get("user");
+
+  useEffect(() => {
+    if (!userCookie || userCookie === undefined) reauthenticate();
+  }, [userCookie]);
+
   return (
     <Routes>
       <Route path="/" element={<Home />} />

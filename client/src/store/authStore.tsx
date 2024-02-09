@@ -15,7 +15,7 @@ type Actions = {
 };
 
 export const useAuthStore = create<State & Actions>((set) => {
-  const userCookie = Cookies.get("user");
+  const userCookie = Cookies.get("user") || null;
   const user = userCookie ? JSON.parse(userCookie) : null;
 
   return {
