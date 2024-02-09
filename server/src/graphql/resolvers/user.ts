@@ -27,9 +27,9 @@ export default {
     },
     async reauthenticate(_: any, args: null, { req, res }: any) {
       const oldRefreshToken = req.cookies["refresh-token"];
-      
-      const { refreshToken, accessToken, user } = await AuthService.reauthenticate(oldRefreshToken);
 
+      const { refreshToken, accessToken, user } = await AuthService.reauthenticate(oldRefreshToken);
+      
       if (refreshToken && accessToken && user) {
         res.cookie("access-token", accessToken, {
           httpOnly: true,
@@ -48,6 +48,11 @@ export default {
           secure: process.env.NODE_ENV === "production",
           maxAge: 1000 * 60 * 30,
           sameSite: "Lax",
+        });
+
+        await UserService.updateUser({
+          _id: user._id,
+          refreshToken,
         });
 
         return true;
@@ -99,9 +104,9 @@ export default {
       const user = await UserService.removeFavorite(args);
       return user;
     },
-    async changeRole(_: any, args: { _id: string, role: string }) {
+    async changeRole(_: any, args: { _id: string; role: string }) {
       const user = await UserService.changeRole(args);
       return user;
-    }
+    },
   },
 };

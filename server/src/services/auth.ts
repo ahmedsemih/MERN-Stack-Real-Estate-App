@@ -93,8 +93,8 @@ class AuthService {
         process.env.JWT_REFRESH_SECRET
       );
       const { _id, role } = decoded;
-
       const isSame = await AuthService.checkRefreshToken(_id, refreshToken);
+
       if (isSame) {
         user = { _id, role };
 
@@ -105,11 +105,6 @@ class AuthService {
         newRefreshToken = await AuthService.generateRefreshToken({
           _id,
           role,
-        });
-
-        await UserService.updateUser({
-          _id,
-          refreshToken,
         });
       }
 
