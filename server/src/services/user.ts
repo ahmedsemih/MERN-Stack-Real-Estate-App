@@ -107,6 +107,15 @@ class UserService {
     ).populate("favorites");
     return user;
   }
+
+  public static async changeRole(params: { _id: string; role: string }) {
+    const user = await User.findByIdAndUpdate(
+      params._id,
+      { role: params.role },
+      { new: true }
+    );
+    return user;
+  }
 }
 
 export default UserService;

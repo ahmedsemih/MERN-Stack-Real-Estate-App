@@ -8,7 +8,13 @@ export const UPDATE_USER = gql`
     $image: String
     $verified: Boolean
   ) {
-    updateUser(_id: $_id, email: $email, phone: $phone, image: $image verified: $verified) {
+    updateUser(
+      _id: $_id
+      email: $email
+      phone: $phone
+      image: $image
+      verified: $verified
+    ) {
       _id
       name
       email
@@ -31,6 +37,21 @@ export const REMOVE_FAVORITE = gql`
   mutation removeFavorite($_id: ID!, $estateId: ID!) {
     removeFavorite(_id: $_id, estateId: $estateId) {
       _id
+    }
+  }
+`;
+
+export const CHANGE_ROLE = gql`
+  mutation changeRole($_id: ID!, $role: String!) {
+    changeRole(_id: $_id, role: $role) {
+      _id
+      name
+      email
+      phone
+      role
+      image
+      verified
+      createdAt
     }
   }
 `;

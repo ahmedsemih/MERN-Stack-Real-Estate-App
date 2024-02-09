@@ -43,7 +43,7 @@ export default {
           maxAge: 1000 * 60 * 60 * 24 * 7,
           sameSite: "Lax",
         });
-        res.cookie("user", user, {
+        res.cookie("user", JSON.stringify(user), {
           httpOnly: false,
           secure: process.env.NODE_ENV === "production",
           maxAge: 1000 * 60 * 30,
@@ -99,5 +99,9 @@ export default {
       const user = await UserService.removeFavorite(args);
       return user;
     },
+    async changeRole(_: any, args: { _id: string, role: string }) {
+      const user = await UserService.changeRole(args);
+      return user;
+    }
   },
 };

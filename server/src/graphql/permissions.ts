@@ -22,6 +22,7 @@ const permissions = shield({
     updateUser: isAuthenticated,
     addFavorite: isAuthenticated,
     removeFavorite: isAuthenticated,
+    changeRole: and(isAuthenticated, isAdmin),
     createType: and(isAuthenticated, isAdmin),
     updateType: and(isAuthenticated, isAdmin),
     deleteType: and(isAuthenticated, isAdmin),

@@ -27,6 +27,7 @@ export default `#graphql
         updateUser(_id: ID!, phone: String, email: String, verified: Boolean, refreshToken: String, image: String): User
         addFavorite(_id: ID!, estateId: ID!): User
         removeFavorite(_id: ID!, estateId: ID!): User
+        changeRole(_id: ID!, role: String!): User
     }
 
     enum Roles {
