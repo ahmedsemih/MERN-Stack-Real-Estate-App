@@ -11,15 +11,20 @@ const LISTING_PER_PAGE = 12;
 const HomePage = () => {
   const [page, setPage] = useState<number>(0);
   const [estates, setEstates] = useState<Estate[]>([]);
+  const [hasMore, setHasMore] = useState<boolean>(true);
+  const [firstLoading, setFirstLoading] = useState<boolean>(true);
 
-  const { loading, error } = useQuery(GET_ESTATES_SORTED_BY_DATE, {
+  const { error } = useQuery(GET_ESTATES_SORTED_BY_DATE, {
     variables: {
       desc: true,
       limit: LISTING_PER_PAGE,
       offset: page * LISTING_PER_PAGE,
     },
     onCompleted: ({ estatesSortedByDate }) => {
+      page === 0 && setFirstLoading(false);
+      
       setEstates((prev) => [...prev, ...estatesSortedByDate]);
+      setHasMore(estatesSortedByDate?.length === LISTING_PER_PAGE)
     },
   });
 
@@ -31,10 +36,10 @@ const HomePage = () => {
       <FeedRenderer
         cardType="grid"
         estates={estates}
-        loading={loading}
+        loading={firstLoading}
         error={error}
         errorMessage="Whoops! An error occurred while fetching the listings."
-        infiniteScroll={{ listingPerPage: LISTING_PER_PAGE, page, setPage }}
+        infiniteScroll={{ hasMore, setPage }}
       />
     </div>
   );

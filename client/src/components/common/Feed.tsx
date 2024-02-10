@@ -9,15 +9,14 @@ type Props = {
   estates: Estate[];
   isGrid?: boolean;
   infiniteScroll?: {
-    listingPerPage: number;
-    page: number;
+    hasMore: boolean;
     setPage: Dispatch<SetStateAction<number>>;
   };
 };
 
 const Feed: FC<Props> = ({ estates, isGrid, infiniteScroll }) => {
   if (infiniteScroll) {
-    const { listingPerPage, page, setPage } = infiniteScroll;
+    const { hasMore, setPage } = infiniteScroll;
 
     return (
       <InfiniteScroll
@@ -27,7 +26,7 @@ const Feed: FC<Props> = ({ estates, isGrid, infiniteScroll }) => {
             : "flex flex-col gap-4"
         }`}
         dataLength={estates.length}
-        hasMore={estates.length <= listingPerPage && page !== 0}
+        hasMore={hasMore}
         next={() => setPage((prev) => prev + 1)}
         loader={<Loader />}
       >

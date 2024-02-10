@@ -12,8 +12,7 @@ type RendererProps = {
   emptyMessage?: string;
   estates: Estate[];
   infiniteScroll?: {
-    listingPerPage: number;
-    page: number;
+    hasMore: boolean;
     setPage: Dispatch<SetStateAction<number>>;
   };
 };

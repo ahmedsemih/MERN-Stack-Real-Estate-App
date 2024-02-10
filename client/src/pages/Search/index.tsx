@@ -17,6 +17,7 @@ const SearchPage = () => {
   const [page, setPage] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true);
   const [estates, setEstates] = useState<Estate[]>([]);
+  const [hasMore, setHasMore] = useState<boolean>(true);
 
   const [fetchEstates, { error: filterError }] = useLazyQuery(
     GET_ESTATES_BY_FILTER,
@@ -24,6 +25,7 @@ const SearchPage = () => {
       onCompleted: ({ estatesByFilter }) => {
         page === 0 && setEstates([]);
 
+        setHasMore(estatesByFilter === LISTING_PER_PAGE);
         setEstates((prev) => [...prev, ...estatesByFilter]);
         setLoading(false);
       },
@@ -36,6 +38,7 @@ const SearchPage = () => {
       onCompleted: ({ estatesBySearch }) => {
         page === 0 && setEstates([]);
 
+        setHasMore(estatesBySearch?.length === LISTING_PER_PAGE);
         setEstates((prev) => [...prev, ...estatesBySearch]);
         setLoading(false);
       },
@@ -95,7 +98,7 @@ const SearchPage = () => {
           error={filterError || searchError}
           errorMessage="Whoops! An error occurred while fetching estates."
           emptyMessage="We couldn't find any estates matching with your search."
-          infiniteScroll={{ listingPerPage: LISTING_PER_PAGE, page, setPage }}
+          infiniteScroll={{ hasMore, setPage }}
         />
       </div>
     </div>
