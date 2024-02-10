@@ -1,7 +1,7 @@
 import Cookies from "js-cookie";
 import { useEffect } from "react";
 import { useLazyQuery } from "@apollo/client";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 
 import {
   Home,
@@ -24,24 +24,22 @@ import { useAuthStore } from "@/store/authStore";
 import { REAUTHENTICATE } from "@/graphql/queries/users";
 
 const RoutesComponent = () => {
-  const navigate = useNavigate();
+  const location = useLocation();
   const logOut = useAuthStore((state) => state.logOut);
 
   const [reauthenticate] = useLazyQuery(REAUTHENTICATE, {
     onCompleted: ({ reauthenticate }) => {
-      if (!reauthenticate) {
-        logOut();
-        navigate("/login");
-      }
+      if (!reauthenticate) logOut();
     },
     fetchPolicy: "no-cache",
   });
 
-  const userCookie = Cookies.get("user");
-
   useEffect(() => {
+    const userCookie = Cookies.get("user");
     if (!userCookie || userCookie === undefined) reauthenticate();
-  }, [userCookie]);
+
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
 
   return (
     <Routes>
