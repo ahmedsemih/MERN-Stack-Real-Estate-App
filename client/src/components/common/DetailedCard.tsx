@@ -25,7 +25,11 @@ const DetailedCard = ({ estate }: { estate: Estate }) => {
           alt={estate.title}
         />
         <FavoriteButton estateId={estate._id} className="left-2 right-auto" />
-        <EditButton estateId={estate._id} sellerId={estate.seller._id} className="bottom-2 top-auto" />
+        <EditButton
+          estateId={estate._id}
+          sellerId={estate.seller._id}
+          className="bottom-2 top-auto"
+        />
       </div>
       <div
         onClick={handleClickCard}
@@ -56,7 +60,9 @@ const DetailedCard = ({ estate }: { estate: Estate }) => {
                   {estate.details.roomAndSaloon}
                 </span>
                 <span className="border-r border-borderColor pr-2 capitalize">
-                  {estate.details.locatedFloor}. floor
+                  {estate.details.locatedFloor != 0
+                    ? `${estate.details.locatedFloor}. floor`
+                    : ""}
                 </span>
                 <span className="capitalize">
                   {estate.details.buildingYear}

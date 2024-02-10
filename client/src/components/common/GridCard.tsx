@@ -15,7 +15,7 @@ const GridCard = ({ estate }: { estate: Estate }) => {
   };
 
   return (
-    <div className="w-full cursor-pointer h-[400px] border border-borderColor bg-bgColor-soft rounded-lg shadow-lg">
+    <div className="w-full cursor-pointer h-[400px] border border-borderColor bg-bgColor-soft rounded-lg">
       <div className="w-full h-1/2 rounded-t-lg relative">
         <img
           onClick={handleClickCard}
@@ -42,7 +42,11 @@ const GridCard = ({ estate }: { estate: Estate }) => {
             </span>
             <span className="inline-block">
               {estate.details &&
-                `${estate.details?.roomAndSaloon}, ${estate.details.locatedFloor}. Floor`}
+                `${estate.details?.roomAndSaloon}${
+                  estate.details.locatedFloor != 0
+                    ? ` , ${estate.details.locatedFloor}. Floor`
+                    : ''
+                }`}
             </span>
           </div>
         </div>
