@@ -32,7 +32,7 @@ export const useAuthStore = create<State & Actions>((set) => {
         };
 
         Cookies.set("user", JSON.stringify(user), {
-          sameSite: "Lax",
+          sameSite: "None",
           expires: 1000 * 60 * 30,
         });
 

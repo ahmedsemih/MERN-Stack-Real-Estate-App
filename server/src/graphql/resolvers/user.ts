@@ -35,19 +35,19 @@ export default {
           httpOnly: true,
           secure: process.env.NODE_ENV === "production",
           maxAge: 1000 * 60 * 30,
-          sameSite: "Lax",
+          sameSite: "None",
         });
         res.cookie("refresh-token", refreshToken, {
           httpOnly: true,
           secure: process.env.NODE_ENV === "production",
           maxAge: 1000 * 60 * 60 * 24 * 7,
-          sameSite: "Lax",
+          sameSite: "None",
         });
         res.cookie("user", JSON.stringify(user), {
           httpOnly: false,
           secure: process.env.NODE_ENV === "production",
           maxAge: 1000 * 60 * 30,
-          sameSite: "Lax",
+          sameSite: "None",
         });
 
         await UserService.updateUser({
@@ -73,13 +73,13 @@ export default {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
         maxAge: 1000 * 60 * 30,
-        sameSite: "Lax",
+        sameSite: "None",
       });
       res.cookie("refresh-token", refreshToken, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
         maxAge: 1000 * 60 * 60 * 24 * 7,
-        sameSite: "Lax",
+        sameSite: "None",
       });
 
       return accessToken;
