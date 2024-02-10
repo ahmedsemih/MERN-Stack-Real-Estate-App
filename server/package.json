@@ -4,12 +4,20 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "compile": "tsc",
-    "start": "npm run compile && node ./dist/index.js",
+    "start": "nodemon src/index.ts",
+    "build": "rimraf dist && tsc",
+    "ts.check": "tsc --project tsconfig.json",
+    "add-build": "git add dist",
+    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon"
   },
   "author": "Ahmed Semih Erkan",
   "license": "MIT",
+  "pre-commit": [
+    "ts.check",
+    "build",
+    "add-build"
+  ],
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
     "@types/cookie-parser": "^1.4.6",
@@ -17,6 +25,8 @@
     "@types/jsonwebtoken": "^9.0.5",
     "@types/node": "^20.10.5",
     "nodemon": "^3.0.2",
+    "pre-commit": "^1.2.2",
+    "rimraf": "^5.0.5",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
   },
