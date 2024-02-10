@@ -27,7 +27,6 @@ export type BaseInputs = {
   description: string;
   price: number;
   size: number;
-  status: boolean;
   type: string;
   detailedType: string;
   location: string;
@@ -65,27 +64,69 @@ const CreateListingPage = () => {
 
   const user = useAuthStore((state) => state.user);
 
-  const [createDetails, { data: detailData }] = useMutation(CREATE_DETAILS, {
-    onCompleted: ({ createDetails }) => methods.setValue("details", createDetails._id),
+  const [createDetails] = useMutation(CREATE_DETAILS, {
+    onCompleted: ({ createDetails }) =>
+      methods.setValue("details", createDetails._id),
     onError: () => toast.error("Somethings went wrong."),
   });
 
-  const [createLocation, { data: locationData }] = useMutation(
-    CREATE_LOCATION,
-    {
-      onCompleted: ({ createLocation }) => methods.setValue("location", createLocation._id),
-      onError: () => toast.error("Somethings went wrong."),
-    }
-  );
+  const [createLocation] = useMutation(CREATE_LOCATION, {
+    onCompleted: async ({ createLocation }) => {
+      methods.setValue("location", createLocation._id);
+
+      const {
+        images,
+        title,
+        description,
+        price,
+        size,
+        category,
+        type,
+        detailedType,
+        details,
+      } = methods.getValues();
+
+      const imageUrls: string[] = [];
+
+      for (let i = 0; i < images.length; i++) {
+        const res = await UploadService.uploadImage(images[i]);
+
+        if (res?.message) return toast.error("Somethings went wrong.");
+
+        imageUrls.push(res.secure_url);
+      }
+
+      setTimeout(() => {
+        createEstate({
+          variables: {
+            images: imageUrls,
+            title,
+            description,
+            price: Number(price),
+            seller: user?._id,
+            size: Number(size),
+            category,
+            location: createLocation._id,
+            type,
+            detailedType,
+            details: details ? details : null,
+          },
+        });
+
+        setLoading(false);
+      }, 2000);
+    },
+    onError: () => toast.error("Somethings went wrong."),
+  });
 
   const [createEstate, { loading: estateLoading }] = useMutation(
     CREATE_ESTATE,
     {
       onCompleted: () => {
         toast.success("Listings created successfully.");
-        return navigate("/account/listings");
+        return navigate("/listings");
       },
-      onError: (error) => console.log(error),
+      onError: () => toast.error("Listing couldn't be created."),
     }
   );
 
@@ -97,18 +138,9 @@ const CreateListingPage = () => {
     BaseInputs & LocationInputs & DetailsInputs
   > = async (data) => {
     const {
-      category,
-      type,
-      detailedType,
       province,
       district,
       address,
-      title,
-      description,
-      images,
-      price,
-      size,
-      status,
       buildingYear,
       balcony,
       bathroom,
@@ -124,28 +156,9 @@ const CreateListingPage = () => {
       parquet,
       roomAndSaloon,
       thermalInsulation,
-      location,
-      details,
     } = data;
 
     setLoading(true);
-    const imageUrls: string[] = [];
-
-    for (let i = 0; i < images.length; i++) {
-      const res = await UploadService.uploadImage(images[i]);
-
-      if (res?.message) return toast.error("Somethings went wrong.");
-
-      imageUrls.push(res.secure_url);
-    }
-
-    createLocation({
-      variables: {
-        province,
-        district,
-        address,
-      },
-    });
 
     if (data.buildingYear)
       createDetails({
@@ -168,28 +181,13 @@ const CreateListingPage = () => {
         },
       });
 
-    setTimeout(() => {
-      if (location || details) {
-        createEstate({
-          variables: {
-            images: imageUrls,
-            title,
-            description,
-            price: Number(price),
-            seller: user?._id,
-            size: Number(size),
-            category,
-            location: locationData.createLocation._id,
-            type,
-            status,
-            detailedType,
-            details: detailData ? detailData.createDetails._id : null,
-          },
-        });
-      }
-
-      setLoading(false);
-    }, 1000);
+    createLocation({
+      variables: {
+        province,
+        district,
+        address,
+      },
+    });
   };
   const inputs = methods.watch();
 
