@@ -24,14 +24,10 @@ type Props = {
 
 const Filters: FC<Props> = ({ setEstates }) => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [isFilterOpen, setIsFilterOpen] = useState<boolean>(true);
+  const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
 
   const methods = useForm<FilterInputs>({
     mode: "onSubmit",
-    defaultValues: {
-      category: "sale",
-      type: "",
-    },
     values: {
       category: searchParams.get('category') || 'sale',
       type: searchParams.get('type') || '',

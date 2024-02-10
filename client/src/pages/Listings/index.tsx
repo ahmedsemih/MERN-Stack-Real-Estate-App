@@ -8,6 +8,7 @@ const ListingsPage = () => {
   const user = useAuthStore((state) => state.user);
   const { data, loading, error } = useQuery(GET_ESTATES_BY_SELLER, {
     variables: { sellerId: user?._id },
+    fetchPolicy: 'no-cache'
   });
 
   return (
