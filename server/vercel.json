@@ -10,7 +10,11 @@
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "dist/index.js"
+      "dest": "dist/index.js",
+      "headers": {
+        "Access-Control-Allow-Origin": "https://estate-hub-ase.vercel.app",
+        "Access-Control-Allow-Credentials": "true"
+      }
     }
   ]
 }
