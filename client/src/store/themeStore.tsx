@@ -9,7 +9,13 @@ type Actions = {
 };
 
 export const useThemeStore = create<State & Actions>((set) => {
-  const currentTheme = localStorage.getItem("theme") || "system";
+  const storedTheme = localStorage.getItem("theme") || "dark";
+  const currentTheme =
+    storedTheme === "light"
+      ? "light"
+      : storedTheme === "system"
+      ? "system"
+      : "dark";
   const htmlEl = document.querySelector("html");
 
   if (currentTheme !== "system") {

@@ -30,8 +30,8 @@ const Providers = ({ children }: { children: ReactNode }) => {
             draggable
             pauseOnHover
             theme="dark"
-            toastClassName='bg-bgColor-soft border border-borderColor'
-            toastStyle={{ background: "var(--bg-soft)" }}
+            toastClassName='bg-bgColor-soft border border-borderColor text-textColor'
+            toastStyle={{ background: "var(--bg-soft)", color: "var(--text)" }}
           />
         </MotionConfig>
       </BrowserRouter>

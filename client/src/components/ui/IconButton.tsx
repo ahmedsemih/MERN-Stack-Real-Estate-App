@@ -4,11 +4,12 @@ import { motion } from "framer-motion";
 
 type Props = {
   text: string;
+  className?: string;
   Icon: IconType;
   onClick?: VoidFunction;
 };
 
-const IconButton: FC<Props> = ({ text, Icon, onClick }) => {
+const IconButton: FC<Props> = ({ text, className, Icon, onClick }) => {
   return (
     <motion.button
       variants={{
@@ -18,7 +19,7 @@ const IconButton: FC<Props> = ({ text, Icon, onClick }) => {
           opacity: 1,
         },
       }}
-      className="p-2 flex flex-col items-center justify-center text-textColor hover:text-textColor-soft transition-colors duration-200"
+      className={"p-2 flex flex-col items-center justify-center transition-colors duration-200 " + className}
       onClick={onClick}
     >
       <Icon className="text-5xl" />

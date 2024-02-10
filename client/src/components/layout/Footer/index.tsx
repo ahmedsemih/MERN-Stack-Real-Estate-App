@@ -3,20 +3,37 @@ import { Link, useLocation } from "react-router-dom";
 
 import { Type } from "@/types";
 import { Logo } from "@/components/common";
+import { useThemeStore } from "@/store/themeStore";
 import { GET_TYPES } from "@/graphql/queries/types";
+import useSystemTheme from "@/hooks/useSystemTheme";
 
 const Footer = () => {
-  const { data } = useQuery(GET_TYPES);
   const location = useLocation();
+  const { data } = useQuery(GET_TYPES);
+  const { systemTheme } = useSystemTheme();
+  const theme = useThemeStore((state) => state.theme);
 
   if (location.pathname === "/login" || location.pathname === "/signup")
     return null;
 
   return (
-    <footer className="flex flex-col border-t border-borderColor bg-bgColor pt-8">
+    <footer
+      className={`flex flex-col border-t border-borderColor pt-8 ${
+        theme === "dark" || (theme === "system" && systemTheme === "dark")
+          ? "bg-bgColor "
+          : "bg-bgColor-soft"
+      }`}
+    >
       <div className="grid grid-cols-1 xl:grid-cols-5 md:grid-cols-4 sm:grid-cols-2 xl:gap-16 gap-8 md:py-8 xl:w-2/3 lg:w-4/5 w-full py-4 lg:px-0 lg:mx-auto md:px-8 px-4 ">
         <div className="flex flex-col xl:col-span-3 sm:col-span-2 col-span-1 sm:items-start items-center">
-          <Logo width={160} />
+          <Logo
+            width={160}
+            fixedTheme={
+              theme === "dark" || (theme === "system" && systemTheme === "dark")
+                ? "dark"
+                : "light"
+            }
+          />
           <p className="text-lg mt-4 text-textColor-soft sm:text-start text-center">
             EstateHub is a MERN-Stack real estate application. Built with React,
             Nodejs, Express, Mongodb and Graphql.

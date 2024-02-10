@@ -30,7 +30,7 @@ const Stepper: FC<Props> = ({
             key={index}
             className={`flex items-center transition-all duration-200 gap-4 ${
               currentStep < index
-                ? "text-borderColor"
+                ? "opacity-50 text-textColor-soft"
                 : currentStep === index
                 ? "text-textColor font-semibold"
                 : "text-textColor-soft"

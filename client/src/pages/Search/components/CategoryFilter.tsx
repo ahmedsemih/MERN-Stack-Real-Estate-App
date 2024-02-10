@@ -65,10 +65,10 @@ const CategoryFilter = () => {
         <button
           type="button"
           onClick={() => handleChangeCategory("sale")}
-          className={`p-4 w-full rounded-full border-2 text-center font-semibold transition-all duration-200 cursor-pointer ${
+          className={`p-4 w-full rounded-full border text-center font-semibold transition-all duration-200 cursor-pointer ${
             selectedCategory === "sale"
               ? "bg-primary text-white border-primary"
-              : "hover:bg-borderColor border-borderColor"
+              : "hover:bg-borderColor border-textColor-soft text-textColor-soft"
           }`}
         >
           Sale
@@ -76,10 +76,10 @@ const CategoryFilter = () => {
         <button
           type="button"
           onClick={() => handleChangeCategory("rent")}
-          className={`p-4 w-full rounded-full border-2 text-center font-semibold transition-all duration-200 cursor-pointer ${
+          className={`p-4 w-full rounded-full border text-center font-semibold transition-all duration-200 cursor-pointer ${
             selectedCategory === "rent"
               ? "bg-primary text-white border-primary"
-              : "hover:bg-borderColor border-borderColor"
+              : "hover:bg-borderColor border-textColor-soft text-textColor-soft"
           }`}
         >
           Rent

@@ -1,16 +1,19 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { MdLogout, MdSettings, MdSpaceDashboard } from "react-icons/md";
 
 import { useAuthStore } from "@/store/authStore";
 import { useThemeStore } from "@/store/themeStore";
 import { LOGOUT } from "@/graphql/mutations/auths";
+import useSystemTheme from "@/hooks/useSystemTheme";
 import { THEME_OPTIONS, USER_MENU_LINKS } from "@/utils/constants";
 
 const UserMenu = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [logout] = useMutation(LOGOUT);
+  const { systemTheme } = useSystemTheme();
   const { user, logOut } = useAuthStore((state) => state);
   const { theme, setTheme } = useThemeStore((state) => state);
 
@@ -34,7 +37,13 @@ const UserMenu = () => {
       className="block relative"
     >
       <button
-        className="text-white border-2 px-4 py-2 font-semibold rounded-2xl transition-all duration-200 border-white hover:text-primary hover:bg-white hover:border-white"
+        className={`border-2 px-4 py-2 font-semibold rounded-2xl transition-all duration-200  ${
+          theme === "dark" ||
+          (theme === "system" && systemTheme === "dark") ||
+          location.pathname === "/"
+            ? "text-white border-white hover:text-primary hover:bg-white hover:border-white"
+            : "text-primary border-primary hover:text-white hover:bg-primary hover:border-primary"
+        }`}
         onClick={() => setIsOpen((prev) => !prev)}
       >
         Account
@@ -57,7 +66,7 @@ const UserMenu = () => {
         {user?.role === "admin" && (
           <button
             className="flex gap-3 items-center text-xl hover:bg-borderColor py-2 px-4 rounded-lg w-full capitalize"
-            onClick={() => handleClick("admin/dashboard")}
+            onClick={() => handleClick("admin")}
           >
             <MdSpaceDashboard />
             Admin Panel

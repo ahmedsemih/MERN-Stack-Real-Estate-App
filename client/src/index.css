@@ -7,9 +7,9 @@
   :root {
     --bg: rgb(230, 230, 230);
     --bg-soft: rgb(240, 240, 240);
-    --border: rgb(210, 210, 210);
-    --text: rgb(25, 25, 25);
-    --text-soft: rgb(40, 40, 40);
+    --border: rgb(220, 220, 220);
+    --text: rgb(40, 40, 40);
+    --text-soft: rgb(60, 60, 60);
     --primary: rgb(225, 33, 27);
     --secondary: rgb(196, 24, 18);
   }
@@ -27,6 +27,7 @@
     overflow-x: hidden;
     background-color: var(--bg);
     color: var(--text);
+    scroll-behavior: smooth;
   }
 
   input[type="number"]::-webkit-inner-spin-button,
@@ -36,10 +37,6 @@
   }
   input[type="number"] {
     -moz-appearance: textfield;
-  }
-
-  input[type="checkbox"] {
-    background: #000 !important;
   }
 
   @media (prefers-color-scheme: dark) {
@@ -67,9 +64,9 @@
   :root[data-theme="light"] {
     --bg: rgb(230, 230, 230);
     --bg-soft: rgb(240, 240, 240);
-    --border: rgb(210, 210, 210);
-    --text: rgb(25, 25, 25);
-    --text-soft: rgb(40, 40, 40);
+    --border: rgb(220, 220, 220);
+    --text: rgb(40, 40, 40);
+    --text-soft: rgb(60, 60, 60);
     --primary: rgb(225, 33, 27);
     --secondary: rgb(196, 24, 18);
   }

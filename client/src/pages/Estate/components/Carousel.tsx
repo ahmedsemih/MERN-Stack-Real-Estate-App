@@ -47,32 +47,35 @@ const Carousel: FC<Props> = ({ images, title }) => {
           />
         ))}
       </div>
-
-      <button
-        onClick={handleClickPrevious}
-        className="absolute md:left-8 left-2 top-[45%] text-4xl opacity-50 hover:opacity-100 duration-200 transition-all cursor-pointer z-20 text-white hover:scale-110"
-      >
-        <FaArrowCircleLeft />
-      </button>
-      <button
-        onClick={handleClickNext}
-        className="absolute md:right-8 right-2 top-[45%] text-4xl opacity-50 hover:opacity-100 duration-200 transition-all cursor-pointer z-20 text-white hover:scale-110"
-      >
-        <FaArrowCircleRight />
-      </button>
-      <div className="absolute md:bottom-4 bottom-2 justify-center gap-2 flex z-30 w-full">
-        {images.map((_, index) => (
+      {images?.length > 1 && (
+        <>
           <button
-            key={index}
-            onClick={() => handleClickBubble(index)}
-            className={`w-4 h-4 rounded-full cursor-pointer bg-white hover:scale-125 ${
-              index === currentImage
-                ? "opacity-100"
-                : "opacity-50 hover:opacity-80"
-            }`}
-          ></button>
-        ))}
-      </div>
+            onClick={handleClickPrevious}
+            className="absolute md:left-8 left-2 top-[45%] text-4xl opacity-50 hover:opacity-100 duration-200 transition-all cursor-pointer z-20 text-white hover:scale-110"
+          >
+            <FaArrowCircleLeft />
+          </button>
+          <button
+            onClick={handleClickNext}
+            className="absolute md:right-8 right-2 top-[45%] text-4xl opacity-50 hover:opacity-100 duration-200 transition-all cursor-pointer z-20 text-white hover:scale-110"
+          >
+            <FaArrowCircleRight />
+          </button>
+          <div className="absolute md:bottom-4 bottom-2 justify-center gap-2 flex z-30 w-full">
+            {images.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => handleClickBubble(index)}
+                className={`w-4 h-4 rounded-full cursor-pointer bg-white hover:scale-125 ${
+                  index === currentImage
+                    ? "opacity-100"
+                    : "opacity-50 hover:opacity-80"
+                }`}
+              ></button>
+            ))}
+          </div>
+        </>
+      )}
     </div>
   );
 };

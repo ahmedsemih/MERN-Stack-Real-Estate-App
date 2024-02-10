@@ -13,7 +13,7 @@ const Info: FC<Props> = ({ estate }) => {
   return (
     <section className="w-full bg-bgColor-soft rounded-lg border border-borderColor p-4">
       <div className="flex md:flex-row flex-col justify-between md:items-center gap-2">
-        <h1 className="sm:text-3xl text-2xl">{estate.title}</h1>
+        <h1 className="sm:text-3xl text-2xl font-semibold">{estate.title}</h1>
       <p className="text-3xl mt-2 font-semibold block md:hidden">{formatPrice(estate.price)}</p>
         <div className="flex">
           <EditButton

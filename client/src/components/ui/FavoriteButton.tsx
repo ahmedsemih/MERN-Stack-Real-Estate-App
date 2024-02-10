@@ -7,6 +7,8 @@ import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
 import { Estate } from "@/types";
 import { useAuthStore } from "@/store/authStore";
 import { GET_USER } from "@/graphql/queries/users";
+import { useThemeStore } from "@/store/themeStore";
+import useSystemTheme from "@/hooks/useSystemTheme";
 import { ADD_FAVORITE, REMOVE_FAVORITE } from "@/graphql/mutations/users";
 
 type Props = {
@@ -16,7 +18,10 @@ type Props = {
 
 const FavoriteButton: FC<Props> = ({ estateId, className }) => {
   const navigate = useNavigate();
+  const { systemTheme } = useSystemTheme();
   const user = useAuthStore((state) => state.user);
+  const theme = useThemeStore((state) => state.theme);
+
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
 
   const { loading } = useQuery(GET_USER, {
@@ -24,8 +29,7 @@ const FavoriteButton: FC<Props> = ({ estateId, className }) => {
     fetchPolicy: "no-cache",
     onCompleted: ({ user }) => {
       user?.favorites.forEach((estate: Estate) => {
-        if (estateId === estate._id) 
-        return setIsFavorite(true);
+        if (estateId === estate._id) return setIsFavorite(true);
       });
     },
   });
@@ -56,8 +60,11 @@ const FavoriteButton: FC<Props> = ({ estateId, className }) => {
         disabled={addLoading || removeLoading || loading}
         onClick={handleFavorite}
         className={
-          "absolute p-2 bg-bgColor-soft top-2 right-2 z-30 text-4xl hover:text-textColor-soft rounded-full transition-all duration-200 " +
-          className
+          `absolute p-2 bg-bgColor-soft top-2 right-2 z-30 text-4xl rounded-full transition-all duration-200 ${
+            theme === "dark" || (theme === "system" && systemTheme === "dark")
+              ? "text-textColor hover:text-textColor-soft"
+              : "text-primary hover:text-secondary"
+          } ` + className
         }
       >
         {isFavorite ? <MdFavorite /> : <MdFavoriteBorder />}
