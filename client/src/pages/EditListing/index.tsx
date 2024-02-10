@@ -87,6 +87,10 @@ const EditListingPage = () => {
   const methods = useForm({
     mode: "onTouched",
     reValidateMode: "onChange",
+    defaultValues: {
+      province: data?.estate.location.province._id,
+      district: data?.estate.location.district._id
+    }
   });
 
   const onSubmit: SubmitHandler<EstateInputs> = async (values) => {

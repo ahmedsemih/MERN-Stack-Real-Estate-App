@@ -13,8 +13,8 @@ type Props = {
 };
 
 const Location: FC<Props> = ({ location }) => {
-  const { data: provinceData } = useQuery(GET_PROVINCES);
-  const { loading, data: districtData } = useQuery(GET_DISTRICTS);
+  const { loading: provinceLoading, data: provinceData } = useQuery(GET_PROVINCES);
+  const { loading: districtLoading, data: districtData } = useQuery(GET_DISTRICTS);
   const {
     register,
     watch,
@@ -23,7 +23,7 @@ const Location: FC<Props> = ({ location }) => {
 
   const selectedProvince = watch("province");
 
-  if (loading || !provinceData || !districtData)
+  if (provinceLoading || districtLoading || !provinceData || !districtData)
     return (
       <section className="rounded-lg border border-borderColor bg-bgColor-soft p-4 flex flex-col gap-4">
         <div className="w-full">
