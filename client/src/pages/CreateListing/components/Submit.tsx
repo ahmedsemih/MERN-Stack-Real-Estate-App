@@ -2,12 +2,11 @@ import { Dispatch, SetStateAction } from "react";
 import { useFormContext } from "react-hook-form";
 import { MdCheck, MdClose } from "react-icons/md";
 
-import { Checkbox } from "@/components/form";
 import formatPrice from "@/utils/formatPrice";
 import { BaseInputs, DetailsInputs, LocationInputs } from "..";
 
 const Submit = ({ setStep }: { setStep: Dispatch<SetStateAction<number>> }) => {
-  const { register, getValues } = useFormContext<BaseInputs & DetailsInputs & LocationInputs>();
+  const { getValues } = useFormContext<BaseInputs & DetailsInputs & LocationInputs>();
   const values = getValues();
 
   return (
@@ -100,12 +99,6 @@ const Submit = ({ setStep }: { setStep: Dispatch<SetStateAction<number>> }) => {
         * From the moment you submit, you agree all that informations is
         correct. *
       </p>
-      <Checkbox
-        label="Publish Directly"
-        layout="checkbox-first"
-        defaultChecked
-        {...register("status")}
-      />
     </section>
   );
 };
