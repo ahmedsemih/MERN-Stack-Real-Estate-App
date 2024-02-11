@@ -29,6 +29,7 @@ const Menu = () => {
     logOut();
     logout({ variables: { _id: user?._id } });
     closeAll();
+    navigate("/");
   };
 
   const handleClickTheme = (theme: string) => {

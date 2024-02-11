@@ -24,6 +24,7 @@ const UserMenu = () => {
     logOut();
     logout({ variables: { _id: user?._id } });
     setIsOpen(false);
+    navigate("/");
   };
 
   const handleClick = (link: string) => {
