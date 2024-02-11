@@ -31,7 +31,10 @@ const AccountPage = () => {
     },
   });
 
-  const methods = useForm<Inputs>({ mode: "onBlur" });
+  const methods = useForm<Inputs>({
+    mode: "onBlur",
+    defaultValues: { email: data?.user.email, phone: data?.user.phone },
+  });
   const onSubmit: SubmitHandler<Inputs> = async (values) => {
     let image = data?.user.image;
     if (values.image) {
@@ -52,7 +55,9 @@ const AccountPage = () => {
   if (loading) return <Loader />;
 
   if (error)
-    return <Error message="Whoops! An error occurred while fetching your informations." />
+    return (
+      <Error message="Whoops! An error occurred while fetching your informations." />
+    );
 
   return (
     <FormProvider {...methods}>
