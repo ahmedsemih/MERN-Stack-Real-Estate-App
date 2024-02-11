@@ -7,6 +7,7 @@ export { default as Seller } from "./Seller";
 export { default as Search } from "./Search";
 export { default as Account } from "./Account";
 export { default as Listigns } from "./Listings";
+export { default as NotFound } from './NotFound';
 export { default as Favorites } from "./Favorites";
 export { default as EditListing } from "./EditListing";
 export { default as CreateListing } from "./CreateListing";

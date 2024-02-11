@@ -17,6 +17,7 @@ import {
   Notifications,
   Search,
   Admin,
+  NotFound,
 } from "../pages";
 import AdminRoute from "./AdminRoute";
 import ProtectedRoute from "./ProtectedRoute";
@@ -60,6 +61,7 @@ const RoutesComponent = () => {
           <Route path="/admin" element={<Admin />} />
         </Route>
       </Route>
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };
