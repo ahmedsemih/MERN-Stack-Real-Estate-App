@@ -53,6 +53,16 @@ const Filters: FC<Props> = ({ setEstates }) => {
     setSearchParams(newParams);
   };
 
+  const handleReset = () => {
+    methods.reset();
+
+    const newParams = new URLSearchParams();
+    newParams.append("category", "sale");
+    setSearchParams(newParams);
+
+    methods.setValue("category", "sale");
+  };
+
   return (
     <div className="w-full flex flex-col gap-2 z-50">
       <BasicButton
@@ -84,10 +94,7 @@ const Filters: FC<Props> = ({ setEstates }) => {
             <BasicButton
               radius="small"
               variant="outlined"
-              onClick={() => {
-                methods.reset();
-                setSearchParams("");
-              }}
+              onClick={handleReset}
               className="w-full"
             >
               Reset

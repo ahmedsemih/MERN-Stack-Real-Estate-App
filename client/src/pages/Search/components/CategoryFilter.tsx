@@ -1,5 +1,5 @@
-import { useState } from "react";
 import { useQuery } from "@apollo/client";
+import { useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
 
 import { FilterInputs } from "./Filters";
@@ -33,6 +33,10 @@ const CategoryFilter = () => {
     setSelectedCategory(category);
     setValue("category", category);
   };
+
+  useEffect(() => {
+    setSelectedCategory(getValues().category);
+  }, [getValues().category]);
 
   if (typeLoading || detailedLoading)
     return (
