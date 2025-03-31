@@ -4,8 +4,6 @@
 
 Estate Hub is a mern-stack real estate application. In this app users can create account, view the listings, filter or search the listings and add them to favorites if they like. Also they can create a listing and put their estate for sale or rent.
 
-**Live demo: [https://estate-hub-ase.vercel.app/](https://estate-hub-ase.vercel.app/)**
-
 ## :bulb: Features
 
 - Responsive UI
